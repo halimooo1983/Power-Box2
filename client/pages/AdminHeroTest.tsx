@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { defaultLandingPageData } from "@shared/admin-types";
 
 // Test importing HeroFormWorking
-// import { HeroFormWorking } from "@/components/admin/HeroFormWorking";
+import { HeroFormWorking } from "@/components/admin/HeroFormWorking";
 
 export default function AdminHeroTest() {
   const [data] = useState(defaultLandingPageData);
