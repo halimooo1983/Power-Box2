@@ -391,11 +391,17 @@ function FeatureEditor({ feature, onChange, onSave, onCancel }: FeatureEditorPro
                 <SelectValue placeholder="Select an icon" />
               </SelectTrigger>
               <SelectContent>
-                {iconOptions.map((icon) => (
-                  <SelectItem key={icon} value={icon}>
-                    📦 {icon} {/* Placeholder - in real app, use actual icon */}
-                  </SelectItem>
-                ))}
+                {iconOptions.map((icon) => {
+                  const IconComponent = iconMap[icon];
+                  return (
+                    <SelectItem key={icon} value={icon}>
+                      <div className="flex items-center gap-2">
+                        <IconComponent className="w-4 h-4" />
+                        {icon}
+                      </div>
+                    </SelectItem>
+                  );
+                })}
               </SelectContent>
             </Select>
           </div>
