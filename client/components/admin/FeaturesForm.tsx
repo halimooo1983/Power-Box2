@@ -204,14 +204,17 @@ export function FeaturesForm({ data, onChange }: FeaturesFormProps) {
                         feature.enabled ? "bg-blue-100" : "bg-gray-100"
                       )}>
                         {/* Icon placeholder - we'll use dynamic icons in actual implementation */}
-                        <div className={cn(
-                          "w-6 h-6 rounded",
-                          feature.enabled 
-                            ? colorOptions.find(c => c.value === feature.color)?.class || "text-blue-600"
-                            : "text-gray-400"
-                        )}>
-                          📦 {/* Placeholder icon */}
-                        </div>
+                        {(() => {
+                          const IconComponent = iconMap[feature.icon] || Package;
+                          return (
+                            <IconComponent className={cn(
+                              "w-6 h-6",
+                              feature.enabled
+                                ? colorOptions.find(c => c.value === feature.color)?.class || "text-blue-600"
+                                : "text-gray-400"
+                            )} />
+                          );
+                        })()}
                       </div>
                       
                       <div className="flex-1">
