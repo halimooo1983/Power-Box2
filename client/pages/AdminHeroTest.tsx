@@ -3,8 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { defaultLandingPageData } from "@shared/admin-types";
 
-// Test importing HeroFormWorking
-import { HeroFormWorking } from "@/components/admin/HeroFormWorking";
+// Test importing simplified Hero form
+import { HeroFormSimple } from "@/components/admin/HeroFormSimple";
 
 export default function AdminHeroTest() {
   const [data] = useState(defaultLandingPageData);
