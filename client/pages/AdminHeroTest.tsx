@@ -47,7 +47,7 @@ export default function AdminHeroTest() {
 
               <div className="mt-6">
                 <h4 className="font-medium mb-4">Hero Form Component Test:</h4>
-                <HeroFormWorking
+                <HeroFormSimple
                   data={data.hero}
                   onChange={(heroData) => {
                     console.log('Hero data changed:', heroData);
