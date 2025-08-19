@@ -24,8 +24,10 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { defaultLandingPageData, type LandingPageData } from "@shared/admin-types";
 
-// Import only working components
-import { HeroForm } from "@/components/admin/HeroForm";
+// Import working form components one by one to test
+import { HeroFormWorking } from "@/components/admin/HeroFormWorking";
+// import { FeaturesFormWorking } from "@/components/admin/FeaturesFormWorking";
+// import { TestimonialsFormWorking } from "@/components/admin/TestimonialsFormWorking";
 
 type AdminSection = 'hero' | 'features' | 'testimonials' | 'seo' | 'links' | 'rating' | 'popups' | 'preview';
 
@@ -37,68 +39,35 @@ interface SidebarItem {
   badge?: string;
 }
 
-const sidebarItems: SidebarItem[] = [
-  {
-    id: 'hero',
-    label: 'Hero Section',
-    icon: FileText,
-    description: 'Edit main headline, pricing, and CTA buttons',
-    badge: 'Essential'
-  },
-  {
-    id: 'features',
-    label: 'Features',
-    icon: Settings,
-    description: 'Manage feature points, reorder, and toggle visibility',
-    badge: `${defaultLandingPageData.features.length} items`
-  },
-  {
-    id: 'testimonials',
-    label: 'Testimonials',
-    icon: Users,
-    description: 'Add, edit, and manage customer reviews',
-    badge: `${defaultLandingPageData.testimonials.length} reviews`
-  },
-  {
-    id: 'seo',
-    label: 'SEO Settings',
-    icon: Search,
-    description: 'Meta titles, descriptions, and social sharing',
-  },
-  {
-    id: 'links',
-    label: 'Links & Navigation',
-    icon: Link,
-    description: 'Manage footer links, social media, and buttons',
-    badge: `${defaultLandingPageData.links.length} links`
-  },
-  {
-    id: 'rating',
-    label: 'Rating Display',
-    icon: Star,
-    description: 'Configure star ratings and review counts',
-  },
-  {
-    id: 'popups',
-    label: 'Popups & Modals',
-    icon: MessageSquare,
-    description: 'Exit intent popups and promotional modals',
-    badge: defaultLandingPageData.popups.some(p => p.enabled) ? 'Active' : 'Inactive'
-  },
-  {
-    id: 'preview',
-    label: 'Preview',
-    icon: Eye,
-    description: 'See how your changes look on the live site',
-    badge: 'Live'
-  }
-];
-
 export default function AdminWorking() {
   const [activeSection, setActiveSection] = useState<AdminSection>('hero');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [data, setData] = useState<LandingPageData>(defaultLandingPageData);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+
+  const sidebarItems: SidebarItem[] = [
+    {
+      id: 'hero',
+      label: 'Hero Section',
+      icon: FileText,
+      description: 'Edit main headline, pricing, and CTA buttons',
+      badge: 'Working'
+    },
+    {
+      id: 'features',
+      label: 'Features',
+      icon: Settings,
+      description: 'Manage feature points, reorder, and toggle visibility',
+      badge: 'Coming Soon'
+    },
+    {
+      id: 'testimonials',
+      label: 'Testimonials',
+      icon: Users,
+      description: 'Add, edit, and manage customer reviews',
+      badge: 'Coming Soon'
+    }
+  ];
 
   const updateData = (section: keyof LandingPageData, newData: any) => {
     setData(prev => ({
@@ -123,65 +92,28 @@ export default function AdminWorking() {
     switch (activeSection) {
       case 'hero':
         return (
-          <HeroForm 
-            data={data.hero} 
-            onChange={(heroData) => updateData('hero', heroData)} 
+          <HeroFormWorking
+            data={data.hero}
+            onChange={(heroData) => updateData('hero', heroData)}
           />
         );
-      case 'features':
-        return (
-          <div className="p-8 text-center bg-gray-50 rounded-lg">
-            <h3 className="text-lg font-medium mb-2">Features Management</h3>
-            <p className="text-gray-600">Features form temporarily disabled for testing</p>
-          </div>
-        );
-      case 'testimonials':
-        return (
-          <div className="p-8 text-center bg-gray-50 rounded-lg">
-            <h3 className="text-lg font-medium mb-2">Testimonials Management</h3>
-            <p className="text-gray-600">Testimonials form coming soon</p>
-          </div>
-        );
-      case 'seo':
-        return (
-          <div className="p-8 text-center bg-gray-50 rounded-lg">
-            <h3 className="text-lg font-medium mb-2">SEO Settings</h3>
-            <p className="text-gray-600">SEO form coming soon</p>
-          </div>
-        );
-      case 'links':
-        return (
-          <div className="p-8 text-center bg-gray-50 rounded-lg">
-            <h3 className="text-lg font-medium mb-2">Links Management</h3>
-            <p className="text-gray-600">Links form coming soon</p>
-          </div>
-        );
-      case 'rating':
-        return (
-          <div className="p-8 text-center bg-gray-50 rounded-lg">
-            <h3 className="text-lg font-medium mb-2">Rating Settings</h3>
-            <p className="text-gray-600">Rating form coming soon</p>
-          </div>
-        );
-      case 'popups':
-        return (
-          <div className="p-8 text-center bg-gray-50 rounded-lg">
-            <h3 className="text-lg font-medium mb-2">Popups & Modals</h3>
-            <p className="text-gray-600">Popups form coming soon</p>
-          </div>
-        );
-      case 'preview':
-        return (
-          <div className="p-8 text-center bg-gray-50 rounded-lg">
-            <h3 className="text-lg font-medium mb-2">Live Preview</h3>
-            <p className="text-gray-600 mb-4">Preview panel coming soon</p>
-            <Button onClick={() => window.open('/', '_blank')}>
-              Open Live Site
-            </Button>
-          </div>
-        );
+      
       default:
-        return <div>Section not found</div>;
+        return (
+          <Card>
+            <CardHeader>
+              <CardTitle>Coming Soon</CardTitle>
+              <CardDescription>
+                This section is being gradually added to test stability.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-gray-600">
+                Currently testing the Hero section. More sections will be added once this is confirmed working.
+              </p>
+            </CardContent>
+          </Card>
+        );
     }
   };
 
@@ -211,7 +143,7 @@ export default function AdminWorking() {
           <div className="flex items-center justify-between p-6 border-b">
             <div>
               <h1 className="text-xl font-bold text-gray-900">Admin Dashboard</h1>
-              <p className="text-sm text-gray-500">Landing Page Editor</p>
+              <p className="text-sm text-gray-500">Testing Phase</p>
             </div>
             <Button
               variant="ghost"
@@ -275,7 +207,7 @@ export default function AdminWorking() {
                         <span className="font-medium">{item.label}</span>
                         {item.badge && (
                           <Badge 
-                            variant={activeSection === item.id ? "secondary" : "outline"}
+                            variant={item.badge === 'Working' ? "default" : "outline"}
                             className="text-xs"
                           >
                             {item.badge}
@@ -337,7 +269,7 @@ export default function AdminWorking() {
                 </Badge>
               )}
               <Badge variant="outline">
-                Last updated: {new Date(data.lastUpdated).toLocaleTimeString()}
+                Testing Phase
               </Badge>
             </div>
           </div>
