@@ -53,11 +53,13 @@ interface FeaturesFormProps {
   onChange: (data: Feature[]) => void;
 }
 
-const iconOptions = [
-  'Package', 'Gift', 'Zap', 'Users', 'Heart', 'BadgeCheck', 'Shield', 'Star',
-  'Truck', 'Clock', 'CheckCircle', 'Award', 'Target', 'Sparkles', 'Crown',
-  'Gem', 'Lightbulb', 'Rocket', 'Trophy', 'Handshake'
-];
+const iconMap: Record<string, LucideIcon> = {
+  Package, Gift, Zap, Users, Heart, BadgeCheck, Shield, Star,
+  Truck, Clock, CheckCircle, Award, Target, Sparkles, Crown,
+  Gem, Lightbulb, Rocket, Trophy, Handshake
+};
+
+const iconOptions = Object.keys(iconMap);
 
 const colorOptions = [
   { value: 'blue', label: 'Blue', class: 'text-blue-600' },
