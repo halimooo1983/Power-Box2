@@ -75,7 +75,7 @@ export default function AdminSimple() {
               </div>
             </div>
           </CardHeader>
-        </CardContent>
+        </Card>
       </div>
 
       {/* Hero Form */}
