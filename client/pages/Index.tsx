@@ -698,6 +698,17 @@ export default function Index() {
         {/* Simple Footer */}
         <footer className="bg-slate-800 py-6 pb-20 sm:py-8 sm:pb-8">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Admin Link - Only show in development */}
+            <div className="text-center mb-4">
+              <a
+                href="/admin"
+                className="text-xs text-gray-400 hover:text-white transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Admin Dashboard
+              </a>
+            </div>
             <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 md:gap-8">
               {/* Facebook */}
               <a
