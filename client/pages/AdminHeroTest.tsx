@@ -44,6 +44,16 @@ export default function AdminHeroTest() {
                   Price: ${data.hero.salePrice}
                 </p>
               </div>
+
+              <div className="mt-6">
+                <h4 className="font-medium mb-4">Hero Form Component Test:</h4>
+                <HeroFormWorking
+                  data={data.hero}
+                  onChange={(heroData) => {
+                    console.log('Hero data changed:', heroData);
+                  }}
+                />
+              </div>
             </div>
           </CardContent>
         </Card>
