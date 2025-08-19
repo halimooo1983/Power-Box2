@@ -218,25 +218,16 @@ export function FeaturesForm({ data, onChange }: FeaturesFormProps) {
               </AlertDescription>
             </Alert>
           ) : (
-            <Reorder.Group
-              values={data}
-              onReorder={handleReorder}
-              className="space-y-3"
-            >
+            <div className="space-y-3">
               {data.map((feature) => (
-                <Reorder.Item
+                <div
                   key={feature.id}
-                  value={feature}
                   className={cn(
-                    "bg-white border rounded-lg p-4 cursor-grab active:cursor-grabbing",
+                    "bg-white border rounded-lg p-4",
                     feature.enabled
                       ? "border-gray-200"
                       : "border-gray-100 bg-gray-50",
                   )}
-                  whileDrag={{
-                    scale: 1.02,
-                    boxShadow: "0 10px 25px rgba(0,0,0,0.1)",
-                  }}
                 >
                   <div className="flex items-center gap-4">
                     {/* Drag Handle */}
@@ -323,9 +314,9 @@ export function FeaturesForm({ data, onChange }: FeaturesFormProps) {
                       </Button>
                     </div>
                   </div>
-                </Reorder.Item>
+                </div>
               ))}
-            </Reorder.Group>
+            </div>
           )}
         </CardContent>
       </Card>
