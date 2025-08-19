@@ -1,18 +1,39 @@
 import { useState } from "react";
 import { motion, Reorder } from "framer-motion";
-import { 
-  Plus, 
-  Trash2, 
-  Edit, 
-  GripVertical, 
-  Upload, 
-  Eye, 
+import {
+  Plus,
+  Trash2,
+  Edit,
+  GripVertical,
+  Upload,
+  Eye,
   EyeOff,
   Save,
   X,
   Image as ImageIcon,
   Type,
-  Palette
+  Palette,
+  Package,
+  Gift,
+  Zap,
+  Users,
+  Heart,
+  BadgeCheck,
+  Shield,
+  Star,
+  Truck,
+  Clock,
+  CheckCircle,
+  Award,
+  Target,
+  Sparkles,
+  Crown,
+  Gem,
+  Lightbulb,
+  Rocket,
+  Trophy,
+  Handshake,
+  LucideIcon
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
