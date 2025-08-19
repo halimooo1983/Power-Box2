@@ -15,18 +15,27 @@ import {
   Home,
   Menu,
   X,
-  ChevronRight
+  ChevronRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import { defaultLandingPageData, type LandingPageData } from "@shared/admin-types";
+import {
+  defaultLandingPageData,
+  type LandingPageData,
+} from "@shared/admin-types";
 
 // Import admin form components (we'll create these next)
 import { HeroForm } from "@/components/admin/HeroForm";
-import { FeaturesForm } from "@/components/admin/FeaturesForm"; 
+import { FeaturesForm } from "@/components/admin/FeaturesForm";
 import { TestimonialsForm } from "@/components/admin/TestimonialsForm";
 import { SEOForm } from "@/components/admin/SEOForm";
 import { LinksForm } from "@/components/admin/LinksForm";
@@ -34,15 +43,15 @@ import { RatingForm } from "@/components/admin/RatingForm";
 import { PopupsForm } from "@/components/admin/PopupsForm";
 import { PreviewPanel } from "@/components/admin/PreviewPanel";
 
-type AdminSection = 
-  | 'hero' 
-  | 'features' 
-  | 'testimonials' 
-  | 'seo' 
-  | 'links' 
-  | 'rating' 
-  | 'popups' 
-  | 'preview';
+type AdminSection =
+  | "hero"
+  | "features"
+  | "testimonials"
+  | "seo"
+  | "links"
+  | "rating"
+  | "popups"
+  | "preview";
 
 interface SidebarItem {
   id: AdminSection;
@@ -54,79 +63,81 @@ interface SidebarItem {
 
 const sidebarItems: SidebarItem[] = [
   {
-    id: 'hero',
-    label: 'Hero Section',
+    id: "hero",
+    label: "Hero Section",
     icon: FileText,
-    description: 'Edit main headline, pricing, and CTA buttons',
-    badge: 'Essential'
+    description: "Edit main headline, pricing, and CTA buttons",
+    badge: "Essential",
   },
   {
-    id: 'features',
-    label: 'Features',
+    id: "features",
+    label: "Features",
     icon: Settings,
-    description: 'Manage feature points, reorder, and toggle visibility',
-    badge: `${defaultLandingPageData.features.length} items`
+    description: "Manage feature points, reorder, and toggle visibility",
+    badge: `${defaultLandingPageData.features.length} items`,
   },
   {
-    id: 'testimonials',
-    label: 'Testimonials',
+    id: "testimonials",
+    label: "Testimonials",
     icon: Users,
-    description: 'Add, edit, and manage customer reviews',
-    badge: `${defaultLandingPageData.testimonials.length} reviews`
+    description: "Add, edit, and manage customer reviews",
+    badge: `${defaultLandingPageData.testimonials.length} reviews`,
   },
   {
-    id: 'seo',
-    label: 'SEO Settings',
+    id: "seo",
+    label: "SEO Settings",
     icon: Search,
-    description: 'Meta titles, descriptions, and social sharing',
+    description: "Meta titles, descriptions, and social sharing",
   },
   {
-    id: 'links',
-    label: 'Links & Navigation',
+    id: "links",
+    label: "Links & Navigation",
     icon: Link,
-    description: 'Manage footer links, social media, and buttons',
-    badge: `${defaultLandingPageData.links.length} links`
+    description: "Manage footer links, social media, and buttons",
+    badge: `${defaultLandingPageData.links.length} links`,
   },
   {
-    id: 'rating',
-    label: 'Rating Display',
+    id: "rating",
+    label: "Rating Display",
     icon: Star,
-    description: 'Configure star ratings and review counts',
+    description: "Configure star ratings and review counts",
   },
   {
-    id: 'popups',
-    label: 'Popups & Modals',
+    id: "popups",
+    label: "Popups & Modals",
     icon: MessageSquare,
-    description: 'Exit intent popups and promotional modals',
-    badge: defaultLandingPageData.popups.some(p => p.enabled) ? 'Active' : 'Inactive'
+    description: "Exit intent popups and promotional modals",
+    badge: defaultLandingPageData.popups.some((p) => p.enabled)
+      ? "Active"
+      : "Inactive",
   },
   {
-    id: 'preview',
-    label: 'Preview',
+    id: "preview",
+    label: "Preview",
     icon: Eye,
-    description: 'See how your changes look on the live site',
-    badge: 'Live'
-  }
+    description: "See how your changes look on the live site",
+    badge: "Live",
+  },
 ];
 
 export default function Admin() {
-  const [activeSection, setActiveSection] = useState<AdminSection>('hero');
+  const [activeSection, setActiveSection] = useState<AdminSection>("hero");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [data, setData] = useState<LandingPageData>(defaultLandingPageData);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
   const updateData = (section: keyof LandingPageData, newData: any) => {
-    setData(prev => ({
+    setData((prev) => ({
       ...prev,
       [section]: newData,
-      lastUpdated: new Date().toISOString()
+      lastUpdated: new Date().toISOString(),
     }));
     setHasUnsavedChanges(true);
   };
 
   const handleSave = async () => {
     // TODO: Replace with actual API call to save data
-    console.log('Saving data:', data);
+    console.log("Saving data:", data);
     setHasUnsavedChanges(false);
     // Show success toast
   };
@@ -138,69 +149,71 @@ export default function Admin() {
 
   const renderActiveForm = () => {
     switch (activeSection) {
-      case 'hero':
+      case "hero":
         return (
-          <HeroForm 
-            data={data.hero} 
-            onChange={(heroData) => updateData('hero', heroData)} 
+          <HeroForm
+            data={data.hero}
+            onChange={(heroData) => updateData("hero", heroData)}
           />
         );
-      case 'features':
+      case "features":
         return (
-          <FeaturesForm 
-            data={data.features} 
-            onChange={(featuresData) => updateData('features', featuresData)} 
+          <FeaturesForm
+            data={data.features}
+            onChange={(featuresData) => updateData("features", featuresData)}
           />
         );
-      case 'testimonials':
+      case "testimonials":
         return (
-          <TestimonialsForm 
-            data={data.testimonials} 
-            onChange={(testimonialsData) => updateData('testimonials', testimonialsData)} 
+          <TestimonialsForm
+            data={data.testimonials}
+            onChange={(testimonialsData) =>
+              updateData("testimonials", testimonialsData)
+            }
           />
         );
-      case 'seo':
+      case "seo":
         return (
-          <SEOForm 
-            data={data.seo} 
-            onChange={(seoData) => updateData('seo', seoData)} 
+          <SEOForm
+            data={data.seo}
+            onChange={(seoData) => updateData("seo", seoData)}
           />
         );
-      case 'links':
+      case "links":
         return (
-          <LinksForm 
-            data={data.links} 
-            onChange={(linksData) => updateData('links', linksData)} 
+          <LinksForm
+            data={data.links}
+            onChange={(linksData) => updateData("links", linksData)}
           />
         );
-      case 'rating':
+      case "rating":
         return (
-          <RatingForm 
-            data={data.rating} 
-            onChange={(ratingData) => updateData('rating', ratingData)} 
+          <RatingForm
+            data={data.rating}
+            onChange={(ratingData) => updateData("rating", ratingData)}
           />
         );
-      case 'popups':
+      case "popups":
         return (
-          <PopupsForm 
-            data={data.popups} 
-            onChange={(popupsData) => updateData('popups', popupsData)} 
+          <PopupsForm
+            data={data.popups}
+            onChange={(popupsData) => updateData("popups", popupsData)}
           />
         );
-      case 'preview':
+      case "preview":
         return <PreviewPanel data={data} />;
       default:
         return <div>Section not found</div>;
     }
   };
 
-  const activeItem = sidebarItems.find(item => item.id === activeSection);
+  const activeItem = sidebarItems.find((item) => item.id === activeSection);
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Mobile sidebar overlay */}
       {sidebarOpen && (
-        <div 
+        <div
           className="fixed inset-0 z-40 bg-black bg-opacity-50 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
@@ -212,14 +225,16 @@ export default function Admin() {
         animate={{ x: sidebarOpen ? 0 : -320 }}
         className={cn(
           "fixed inset-y-0 left-0 z-50 w-80 bg-white shadow-xl lg:translate-x-0 lg:static lg:inset-0",
-          "lg:block"
+          "lg:block",
         )}
       >
         <div className="flex h-full flex-col">
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b">
             <div>
-              <h1 className="text-xl font-bold text-gray-900">Admin Dashboard</h1>
+              <h1 className="text-xl font-bold text-gray-900">
+                Admin Dashboard
+              </h1>
               <p className="text-sm text-gray-500">Landing Page Editor</p>
             </div>
             <Button
@@ -235,7 +250,7 @@ export default function Admin() {
           {/* Action Buttons */}
           <div className="p-6 border-b bg-gray-50">
             <div className="space-y-2">
-              <Button 
+              <Button
                 onClick={handleSave}
                 className="w-full"
                 disabled={!hasUnsavedChanges}
@@ -248,8 +263,8 @@ export default function Admin() {
                   </Badge>
                 )}
               </Button>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 onClick={handleReset}
                 className="w-full"
               >
@@ -268,9 +283,9 @@ export default function Admin() {
                   variant={activeSection === item.id ? "default" : "ghost"}
                   className={cn(
                     "w-full justify-start h-auto p-4",
-                    activeSection === item.id 
-                      ? "bg-blue-600 text-white hover:bg-blue-700" 
-                      : "text-gray-700 hover:bg-gray-100"
+                    activeSection === item.id
+                      ? "bg-blue-600 text-white hover:bg-blue-700"
+                      : "text-gray-700 hover:bg-gray-100",
                   )}
                   onClick={() => {
                     setActiveSection(item.id);
@@ -283,8 +298,12 @@ export default function Admin() {
                       <div className="flex items-center justify-between">
                         <span className="font-medium">{item.label}</span>
                         {item.badge && (
-                          <Badge 
-                            variant={activeSection === item.id ? "secondary" : "outline"}
+                          <Badge
+                            variant={
+                              activeSection === item.id
+                                ? "secondary"
+                                : "outline"
+                            }
                             className="text-xs"
                           >
                             {item.badge}
@@ -303,10 +322,10 @@ export default function Admin() {
 
           {/* Footer */}
           <div className="border-t p-4">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               className="w-full"
-              onClick={() => window.open('/', '_blank')}
+              onClick={() => window.open("/", "_blank")}
             >
               <Home className="mr-2 h-4 w-4" />
               View Live Site
@@ -329,12 +348,12 @@ export default function Admin() {
               >
                 <Menu className="h-5 w-5" />
               </Button>
-              
+
               <div className="flex items-center gap-2 text-sm text-gray-500">
                 <span>Admin</span>
                 <ChevronRight className="h-4 w-4" />
                 <span className="text-gray-900 font-medium">
-                  {activeItem?.label || 'Dashboard'}
+                  {activeItem?.label || "Dashboard"}
                 </span>
               </div>
             </div>
@@ -372,18 +391,14 @@ export default function Admin() {
                   <h2 className="text-2xl font-bold text-gray-900">
                     {activeItem?.label}
                   </h2>
-                  <p className="text-gray-600">
-                    {activeItem?.description}
-                  </p>
+                  <p className="text-gray-600">{activeItem?.description}</p>
                 </div>
               </div>
               <Separator />
             </div>
 
             {/* Form Content */}
-            <div className="max-w-4xl">
-              {renderActiveForm()}
-            </div>
+            <div className="max-w-4xl">{renderActiveForm()}</div>
           </motion.div>
         </main>
       </div>

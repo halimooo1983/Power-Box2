@@ -1,26 +1,38 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { 
-  Plus, 
-  Trash2, 
-  Edit, 
-  Upload, 
+import {
+  Plus,
+  Trash2,
+  Edit,
+  Upload,
   Star,
   Save,
   X,
   User,
   MapPin,
   Calendar,
-  CheckCircle2
+  CheckCircle2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import type { Testimonial } from "@shared/admin-types";
@@ -32,24 +44,25 @@ interface TestimonialsFormProps {
 }
 
 export function TestimonialsForm({ data, onChange }: TestimonialsFormProps) {
-  const [editingTestimonial, setEditingTestimonial] = useState<Testimonial | null>(null);
+  const [editingTestimonial, setEditingTestimonial] =
+    useState<Testimonial | null>(null);
   const [isAddingNew, setIsAddingNew] = useState(false);
 
   const generateId = () => Math.random().toString(36).substr(2, 9);
 
   const createNewTestimonial = (): Testimonial => ({
     id: generateId(),
-    name: '',
+    name: "",
     rating: 5,
-    review: '',
-    profileImage: '',
+    review: "",
+    profileImage: "",
     verified: true,
-    location: '',
-    purchaseDate: new Date().toISOString().split('T')[0]
+    location: "",
+    purchaseDate: new Date().toISOString().split("T")[0],
   });
 
   const handleDelete = (id: string) => {
-    const updated = data.filter(testimonial => testimonial.id !== id);
+    const updated = data.filter((testimonial) => testimonial.id !== id);
     onChange(updated);
   };
 
@@ -58,7 +71,9 @@ export function TestimonialsForm({ data, onChange }: TestimonialsFormProps) {
       onChange([...data, testimonial]);
       setIsAddingNew(false);
     } else {
-      const updated = data.map(t => t.id === testimonial.id ? testimonial : t);
+      const updated = data.map((t) =>
+        t.id === testimonial.id ? testimonial : t,
+      );
       onChange(updated);
     }
     setEditingTestimonial(null);
@@ -74,9 +89,10 @@ export function TestimonialsForm({ data, onChange }: TestimonialsFormProps) {
     setIsAddingNew(true);
   };
 
-  const averageRating = data.length > 0 
-    ? (data.reduce((sum, t) => sum + t.rating, 0) / data.length).toFixed(1)
-    : '0';
+  const averageRating =
+    data.length > 0
+      ? (data.reduce((sum, t) => sum + t.rating, 0) / data.length).toFixed(1)
+      : "0";
 
   return (
     <motion.div
@@ -118,7 +134,8 @@ export function TestimonialsForm({ data, onChange }: TestimonialsFormProps) {
             <CardContent className="p-6">
               <Alert>
                 <AlertDescription>
-                  No testimonials added yet. Click "Add Review" to create your first customer testimonial.
+                  No testimonials added yet. Click "Add Review" to create your
+                  first customer testimonial.
                 </AlertDescription>
               </Alert>
             </CardContent>
@@ -134,9 +151,16 @@ export function TestimonialsForm({ data, onChange }: TestimonialsFormProps) {
               <div className="flex gap-4">
                 {/* Avatar */}
                 <Avatar className="w-12 h-12 flex-shrink-0">
-                  <AvatarImage src={testimonial.profileImage} alt={testimonial.name} />
+                  <AvatarImage
+                    src={testimonial.profileImage}
+                    alt={testimonial.name}
+                  />
                   <AvatarFallback>
-                    {testimonial.name.split(' ').map(n => n[0]).join('').toUpperCase()}
+                    {testimonial.name
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")
+                      .toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
 
@@ -145,7 +169,7 @@ export function TestimonialsForm({ data, onChange }: TestimonialsFormProps) {
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
                       <h4 className="font-medium text-gray-900">
-                        {testimonial.name || 'Anonymous'}
+                        {testimonial.name || "Anonymous"}
                       </h4>
                       {testimonial.verified && (
                         <CheckCircle2 className="h-4 w-4 text-blue-600" />
@@ -178,9 +202,9 @@ export function TestimonialsForm({ data, onChange }: TestimonialsFormProps) {
                           key={i}
                           className={cn(
                             "h-4 w-4",
-                            i < testimonial.rating 
-                              ? "text-yellow-400 fill-current" 
-                              : "text-gray-300"
+                            i < testimonial.rating
+                              ? "text-yellow-400 fill-current"
+                              : "text-gray-300",
                           )}
                         />
                       ))}
@@ -206,7 +230,9 @@ export function TestimonialsForm({ data, onChange }: TestimonialsFormProps) {
                     {testimonial.purchaseDate && (
                       <div className="flex items-center gap-1">
                         <Calendar className="h-3 w-3" />
-                        {new Date(testimonial.purchaseDate).toLocaleDateString()}
+                        {new Date(
+                          testimonial.purchaseDate,
+                        ).toLocaleDateString()}
                       </div>
                     )}
                     {testimonial.verified && (
@@ -223,16 +249,19 @@ export function TestimonialsForm({ data, onChange }: TestimonialsFormProps) {
       </div>
 
       {/* Edit/Add Modal */}
-      <Dialog open={!!editingTestimonial} onOpenChange={(open) => {
-        if (!open) {
-          setEditingTestimonial(null);
-          setIsAddingNew(false);
-        }
-      }}>
+      <Dialog
+        open={!!editingTestimonial}
+        onOpenChange={(open) => {
+          if (!open) {
+            setEditingTestimonial(null);
+            setIsAddingNew(false);
+          }
+        }}
+      >
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>
-              {isAddingNew ? 'Add New Testimonial' : 'Edit Testimonial'}
+              {isAddingNew ? "Add New Testimonial" : "Edit Testimonial"}
             </DialogTitle>
             <DialogDescription>
               Configure the customer review details and rating
@@ -264,13 +293,20 @@ interface TestimonialEditorProps {
   onCancel: () => void;
 }
 
-function TestimonialEditor({ testimonial, onChange, onSave, onCancel }: TestimonialEditorProps) {
-  const [imagePreview, setImagePreview] = useState<string>(testimonial.profileImage);
+function TestimonialEditor({
+  testimonial,
+  onChange,
+  onSave,
+  onCancel,
+}: TestimonialEditorProps) {
+  const [imagePreview, setImagePreview] = useState<string>(
+    testimonial.profileImage,
+  );
 
   const updateField = (field: keyof Testimonial, value: any) => {
     onChange({
       ...testimonial,
-      [field]: value
+      [field]: value,
     });
   };
 
@@ -281,7 +317,7 @@ function TestimonialEditor({ testimonial, onChange, onSave, onCancel }: Testimon
       reader.onload = (e) => {
         const result = e.target?.result as string;
         setImagePreview(result);
-        updateField('profileImage', result);
+        updateField("profileImage", result);
       };
       reader.readAsDataURL(file);
     }
@@ -289,11 +325,11 @@ function TestimonialEditor({ testimonial, onChange, onSave, onCancel }: Testimon
 
   const handleSave = () => {
     if (!testimonial.name.trim()) {
-      alert('Please enter a customer name');
+      alert("Please enter a customer name");
       return;
     }
     if (!testimonial.review.trim()) {
-      alert('Please enter a review');
+      alert("Please enter a review");
       return;
     }
     onSave(testimonial);
@@ -307,24 +343,24 @@ function TestimonialEditor({ testimonial, onChange, onSave, onCancel }: Testimon
           <User className="h-5 w-5 text-gray-500" />
           <h3 className="font-medium">Customer Information</h3>
         </div>
-        
+
         <div className="grid md:grid-cols-2 gap-4">
           <div>
             <Label htmlFor="customerName">Customer Name *</Label>
             <Input
               id="customerName"
               value={testimonial.name}
-              onChange={(e) => updateField('name', e.target.value)}
+              onChange={(e) => updateField("name", e.target.value)}
               placeholder="John Doe"
             />
           </div>
-          
+
           <div>
             <Label htmlFor="location">Location (Optional)</Label>
             <Input
               id="location"
-              value={testimonial.location || ''}
-              onChange={(e) => updateField('location', e.target.value)}
+              value={testimonial.location || ""}
+              onChange={(e) => updateField("location", e.target.value)}
               placeholder="California, US"
             />
           </div>
@@ -336,16 +372,16 @@ function TestimonialEditor({ testimonial, onChange, onSave, onCancel }: Testimon
             <Input
               id="purchaseDate"
               type="date"
-              value={testimonial.purchaseDate || ''}
-              onChange={(e) => updateField('purchaseDate', e.target.value)}
+              value={testimonial.purchaseDate || ""}
+              onChange={(e) => updateField("purchaseDate", e.target.value)}
             />
           </div>
-          
+
           <div className="flex items-center space-x-2">
             <Switch
               id="verified"
               checked={testimonial.verified}
-              onCheckedChange={(checked) => updateField('verified', checked)}
+              onCheckedChange={(checked) => updateField("verified", checked)}
             />
             <Label htmlFor="verified">Verified Purchase</Label>
           </div>
@@ -361,12 +397,14 @@ function TestimonialEditor({ testimonial, onChange, onSave, onCancel }: Testimon
             <Avatar className="w-16 h-16">
               <AvatarImage src={imagePreview} alt="Profile preview" />
               <AvatarFallback>
-                {testimonial.name.split(' ').map(n => n[0]).join('').toUpperCase()}
+                {testimonial.name
+                  .split(" ")
+                  .map((n) => n[0])
+                  .join("")
+                  .toUpperCase()}
               </AvatarFallback>
             </Avatar>
-            <div className="text-sm text-gray-600">
-              Current profile image
-            </div>
+            <div className="text-sm text-gray-600">Current profile image</div>
           </div>
         )}
 
@@ -377,7 +415,7 @@ function TestimonialEditor({ testimonial, onChange, onSave, onCancel }: Testimon
               id="profileImage"
               value={testimonial.profileImage}
               onChange={(e) => {
-                updateField('profileImage', e.target.value);
+                updateField("profileImage", e.target.value);
                 setImagePreview(e.target.value);
               }}
               placeholder="https://example.com/profile.jpg"
@@ -399,7 +437,7 @@ function TestimonialEditor({ testimonial, onChange, onSave, onCancel }: Testimon
       {/* Rating & Review */}
       <div className="space-y-4">
         <h3 className="font-medium">Rating & Review</h3>
-        
+
         <div>
           <Label htmlFor="rating">Rating</Label>
           <div className="flex items-center gap-4 mt-2">
@@ -409,11 +447,11 @@ function TestimonialEditor({ testimonial, onChange, onSave, onCancel }: Testimon
                   key={star}
                   className={cn(
                     "h-6 w-6 cursor-pointer transition-colors",
-                    star <= testimonial.rating 
-                      ? "text-yellow-400 fill-current" 
-                      : "text-gray-300 hover:text-yellow-200"
+                    star <= testimonial.rating
+                      ? "text-yellow-400 fill-current"
+                      : "text-gray-300 hover:text-yellow-200",
                   )}
-                  onClick={() => updateField('rating', star)}
+                  onClick={() => updateField("rating", star)}
                 />
               ))}
             </div>
@@ -428,7 +466,7 @@ function TestimonialEditor({ testimonial, onChange, onSave, onCancel }: Testimon
           <Textarea
             id="review"
             value={testimonial.review}
-            onChange={(e) => updateField('review', e.target.value)}
+            onChange={(e) => updateField("review", e.target.value)}
             placeholder="Write the customer's review..."
             className="min-h-[120px]"
           />
