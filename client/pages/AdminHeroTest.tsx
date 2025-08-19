@@ -22,16 +22,22 @@ export default function AdminHeroTest() {
           <CardContent>
             <div className="space-y-4">
               <div className="p-4 bg-green-50 rounded-lg border border-green-200">
-                <h3 className="font-medium text-green-900 mb-2">✅ Step 1: Basic page loads</h3>
+                <h3 className="font-medium text-green-900 mb-2">
+                  ✅ Step 1: Basic page loads
+                </h3>
                 <p className="text-green-700 text-sm">
-                  This page loads without importing the HeroFormWorking component.
+                  This page loads without importing the HeroFormWorking
+                  component.
                 </p>
               </div>
 
               <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
-                <h3 className="font-medium text-blue-900 mb-2">🔍 Step 2: Test import</h3>
+                <h3 className="font-medium text-blue-900 mb-2">
+                  🔍 Step 2: Test import
+                </h3>
                 <p className="text-blue-700 text-sm">
-                  Next, we'll uncomment the import to see if that causes the blank page.
+                  Next, we'll uncomment the import to see if that causes the
+                  blank page.
                 </p>
               </div>
 
@@ -50,7 +56,7 @@ export default function AdminHeroTest() {
                 <HeroFormSimple
                   data={data.hero}
                   onChange={(heroData) => {
-                    console.log('Hero data changed:', heroData);
+                    console.log("Hero data changed:", heroData);
                   }}
                 />
               </div>

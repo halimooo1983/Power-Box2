@@ -12,7 +12,7 @@ export function HeroFormSimple({ data, onChange }: HeroFormSimpleProps) {
   const updateField = (field: keyof HeroContent, value: any) => {
     onChange({
       ...data,
-      [field]: value
+      [field]: value,
     });
   };
 
@@ -28,11 +28,11 @@ export function HeroFormSimple({ data, onChange }: HeroFormSimpleProps) {
             <Input
               id="title"
               value={data.title}
-              onChange={(e) => updateField('title', e.target.value)}
+              onChange={(e) => updateField("title", e.target.value)}
               placeholder="Enter title"
             />
           </div>
-          
+
           <div className="space-y-2">
             <Label htmlFor="salePrice">Sale Price</Label>
             <Input
@@ -40,7 +40,9 @@ export function HeroFormSimple({ data, onChange }: HeroFormSimpleProps) {
               type="number"
               step="0.01"
               value={data.salePrice}
-              onChange={(e) => updateField('salePrice', parseFloat(e.target.value) || 0)}
+              onChange={(e) =>
+                updateField("salePrice", parseFloat(e.target.value) || 0)
+              }
               placeholder="31.95"
             />
           </div>
@@ -50,7 +52,7 @@ export function HeroFormSimple({ data, onChange }: HeroFormSimpleProps) {
             <Input
               id="primaryButtonText"
               value={data.primaryButtonText}
-              onChange={(e) => updateField('primaryButtonText', e.target.value)}
+              onChange={(e) => updateField("primaryButtonText", e.target.value)}
               placeholder="View Product Details"
             />
           </div>

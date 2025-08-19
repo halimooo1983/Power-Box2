@@ -116,7 +116,7 @@ export interface FooterContent {
     id: string;
     label: string;
     url: string;
-    category: 'legal' | 'support' | 'company';
+    category: "legal" | "support" | "company";
   }[];
 }
 

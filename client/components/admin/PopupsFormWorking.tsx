@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { 
-  Plus, 
-  Trash2, 
-  Edit, 
-  Eye, 
+import {
+  Plus,
+  Trash2,
+  Edit,
+  Eye,
   EyeOff,
   Save,
   X,
@@ -12,17 +12,35 @@ import {
   Upload,
   Clock,
   MousePointer,
-  Scroll
+  Scroll,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import type { PopupContent } from "@shared/admin-types";
 
@@ -32,24 +50,24 @@ interface PopupsFormWorkingProps {
 }
 
 const popupTypes = [
-  { 
-    value: 'exit-intent', 
-    label: 'Exit Intent', 
+  {
+    value: "exit-intent",
+    label: "Exit Intent",
     icon: MousePointer,
-    description: 'Triggers when user moves cursor to leave the page'
+    description: "Triggers when user moves cursor to leave the page",
   },
-  { 
-    value: 'timed', 
-    label: 'Timed Popup', 
+  {
+    value: "timed",
+    label: "Timed Popup",
     icon: Clock,
-    description: 'Appears after a specified delay'
+    description: "Appears after a specified delay",
   },
-  { 
-    value: 'scroll', 
-    label: 'Scroll Triggered', 
+  {
+    value: "scroll",
+    label: "Scroll Triggered",
     icon: Scroll,
-    description: 'Triggers when user scrolls to a certain percentage'
-  }
+    description: "Triggers when user scrolls to a certain percentage",
+  },
 ];
 
 export function PopupsFormWorking({ data, onChange }: PopupsFormWorkingProps) {
@@ -60,23 +78,23 @@ export function PopupsFormWorking({ data, onChange }: PopupsFormWorkingProps) {
 
   const createNewPopup = (): PopupContent => ({
     id: generateId(),
-    title: '',
-    description: '',
-    buttonText: '',
-    buttonLink: '',
+    title: "",
+    description: "",
+    buttonText: "",
+    buttonLink: "",
     enabled: true,
-    type: 'exit-intent'
+    type: "exit-intent",
   });
 
   const handleToggleEnabled = (id: string) => {
-    const updated = data.map(popup =>
-      popup.id === id ? { ...popup, enabled: !popup.enabled } : popup
+    const updated = data.map((popup) =>
+      popup.id === id ? { ...popup, enabled: !popup.enabled } : popup,
     );
     onChange(updated);
   };
 
   const handleDelete = (id: string) => {
-    const updated = data.filter(popup => popup.id !== id);
+    const updated = data.filter((popup) => popup.id !== id);
     onChange(updated);
   };
 
@@ -85,7 +103,7 @@ export function PopupsFormWorking({ data, onChange }: PopupsFormWorkingProps) {
       onChange([...data, popup]);
       setIsAddingNew(false);
     } else {
-      const updated = data.map(p => p.id === popup.id ? popup : p);
+      const updated = data.map((p) => (p.id === popup.id ? popup : p));
       onChange(updated);
     }
     setEditingPopup(null);
@@ -101,7 +119,7 @@ export function PopupsFormWorking({ data, onChange }: PopupsFormWorkingProps) {
     setIsAddingNew(true);
   };
 
-  const enabledCount = data.filter(p => p.enabled).length;
+  const enabledCount = data.filter((p) => p.enabled).length;
 
   return (
     <motion.div
@@ -116,7 +134,8 @@ export function PopupsFormWorking({ data, onChange }: PopupsFormWorkingProps) {
             <div>
               <CardTitle>Popups & Modals</CardTitle>
               <CardDescription>
-                Manage exit intent popups, timed modals, and promotional overlays
+                Manage exit intent popups, timed modals, and promotional
+                overlays
               </CardDescription>
             </div>
             <div className="flex items-center gap-3">
@@ -139,34 +158,41 @@ export function PopupsFormWorking({ data, onChange }: PopupsFormWorkingProps) {
             <CardContent className="p-6">
               <Alert>
                 <AlertDescription>
-                  No popups created yet. Click "Add Popup" to create your first popup or modal.
+                  No popups created yet. Click "Add Popup" to create your first
+                  popup or modal.
                 </AlertDescription>
               </Alert>
             </CardContent>
           </Card>
         ) : (
           data.map((popup) => {
-            const typeInfo = popupTypes.find(t => t.value === popup.type);
+            const typeInfo = popupTypes.find((t) => t.value === popup.type);
             const TypeIcon = typeInfo?.icon || MessageSquare;
-            
+
             return (
               <motion.div
                 key={popup.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 className={`bg-white border rounded-lg p-6 shadow-sm hover:shadow-md transition-all ${
-                  popup.enabled ? 'border-l-4 border-l-blue-500' : 'border-l-4 border-l-gray-300'
+                  popup.enabled
+                    ? "border-l-4 border-l-blue-500"
+                    : "border-l-4 border-l-gray-300"
                 }`}
               >
                 <div className="flex items-start gap-4">
                   {/* Icon & Status */}
                   <div className="flex-shrink-0">
-                    <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
-                      popup.enabled ? 'bg-blue-100' : 'bg-gray-100'
-                    }`}>
-                      <TypeIcon className={`h-6 w-6 ${
-                        popup.enabled ? 'text-blue-600' : 'text-gray-400'
-                      }`} />
+                    <div
+                      className={`w-12 h-12 rounded-lg flex items-center justify-center ${
+                        popup.enabled ? "bg-blue-100" : "bg-gray-100"
+                      }`}
+                    >
+                      <TypeIcon
+                        className={`h-6 w-6 ${
+                          popup.enabled ? "text-blue-600" : "text-gray-400"
+                        }`}
+                      />
                     </div>
                   </div>
 
@@ -174,12 +200,17 @@ export function PopupsFormWorking({ data, onChange }: PopupsFormWorkingProps) {
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-2">
-                        <h4 className={`font-medium ${
-                          popup.enabled ? 'text-gray-900' : 'text-gray-500'
-                        }`}>
-                          {popup.title || 'Untitled Popup'}
+                        <h4
+                          className={`font-medium ${
+                            popup.enabled ? "text-gray-900" : "text-gray-500"
+                          }`}
+                        >
+                          {popup.title || "Untitled Popup"}
                         </h4>
-                        <Badge variant={popup.enabled ? "default" : "secondary"} className="text-xs">
+                        <Badge
+                          variant={popup.enabled ? "default" : "secondary"}
+                          className="text-xs"
+                        >
                           {typeInfo?.label}
                         </Badge>
                         {!popup.enabled && (
@@ -190,27 +221,34 @@ export function PopupsFormWorking({ data, onChange }: PopupsFormWorkingProps) {
                       </div>
                     </div>
 
-                    <p className={`text-sm mb-3 ${
-                      popup.enabled ? 'text-gray-600' : 'text-gray-400'
-                    }`}>
-                      {popup.description || 'No description'}
+                    <p
+                      className={`text-sm mb-3 ${
+                        popup.enabled ? "text-gray-600" : "text-gray-400"
+                      }`}
+                    >
+                      {popup.description || "No description"}
                     </p>
 
                     {/* Trigger Settings */}
                     <div className="text-xs text-gray-500 mb-3">
-                      <span className="font-medium">{typeInfo?.description}</span>
-                      {popup.type === 'timed' && popup.delay && (
+                      <span className="font-medium">
+                        {typeInfo?.description}
+                      </span>
+                      {popup.type === "timed" && popup.delay && (
                         <span> • Delay: {popup.delay}ms</span>
                       )}
-                      {popup.type === 'scroll' && popup.scrollPercentage && (
-                        <span> • Trigger at {popup.scrollPercentage}% scroll</span>
+                      {popup.type === "scroll" && popup.scrollPercentage && (
+                        <span>
+                          {" "}
+                          • Trigger at {popup.scrollPercentage}% scroll
+                        </span>
                       )}
                     </div>
 
                     {/* Buttons */}
                     <div className="flex items-center gap-2 text-xs">
                       <Badge variant="outline">
-                        Primary: {popup.buttonText || 'No text'}
+                        Primary: {popup.buttonText || "No text"}
                       </Badge>
                       {popup.secondaryButtonText && (
                         <Badge variant="outline">
@@ -250,16 +288,19 @@ export function PopupsFormWorking({ data, onChange }: PopupsFormWorkingProps) {
       </div>
 
       {/* Edit/Add Modal */}
-      <Dialog open={!!editingPopup} onOpenChange={(open) => {
-        if (!open) {
-          setEditingPopup(null);
-          setIsAddingNew(false);
-        }
-      }}>
+      <Dialog
+        open={!!editingPopup}
+        onOpenChange={(open) => {
+          if (!open) {
+            setEditingPopup(null);
+            setIsAddingNew(false);
+          }
+        }}
+      >
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>
-              {isAddingNew ? 'Add New Popup' : 'Edit Popup'}
+              {isAddingNew ? "Add New Popup" : "Edit Popup"}
             </DialogTitle>
             <DialogDescription>
               Configure popup content, appearance, and trigger settings
@@ -292,12 +333,12 @@ interface PopupEditorProps {
 }
 
 function PopupEditor({ popup, onChange, onSave, onCancel }: PopupEditorProps) {
-  const [imagePreview, setImagePreview] = useState<string>(popup.image || '');
+  const [imagePreview, setImagePreview] = useState<string>(popup.image || "");
 
   const updateField = (field: keyof PopupContent, value: any) => {
     onChange({
       ...popup,
-      [field]: value
+      [field]: value,
     });
   };
 
@@ -308,7 +349,7 @@ function PopupEditor({ popup, onChange, onSave, onCancel }: PopupEditorProps) {
       reader.onload = (e) => {
         const result = e.target?.result as string;
         setImagePreview(result);
-        updateField('image', result);
+        updateField("image", result);
       };
       reader.readAsDataURL(file);
     }
@@ -316,41 +357,41 @@ function PopupEditor({ popup, onChange, onSave, onCancel }: PopupEditorProps) {
 
   const handleSave = () => {
     if (!popup.title.trim()) {
-      alert('Please enter a popup title');
+      alert("Please enter a popup title");
       return;
     }
     if (!popup.buttonText.trim()) {
-      alert('Please enter button text');
+      alert("Please enter button text");
       return;
     }
     onSave(popup);
   };
 
-  const selectedType = popupTypes.find(t => t.value === popup.type);
+  const selectedType = popupTypes.find((t) => t.value === popup.type);
 
   return (
     <div className="space-y-6">
       {/* Basic Content */}
       <div className="space-y-4">
         <h3 className="font-medium">Content</h3>
-        
+
         <div className="space-y-3">
           <div>
             <Label htmlFor="popupTitle">Title *</Label>
             <Input
               id="popupTitle"
               value={popup.title}
-              onChange={(e) => updateField('title', e.target.value)}
+              onChange={(e) => updateField("title", e.target.value)}
               placeholder="Don't Miss Out!"
             />
           </div>
-          
+
           <div>
             <Label htmlFor="popupSubtitle">Subtitle (Optional)</Label>
             <Input
               id="popupSubtitle"
-              value={popup.subtitle || ''}
-              onChange={(e) => updateField('subtitle', e.target.value)}
+              value={popup.subtitle || ""}
+              onChange={(e) => updateField("subtitle", e.target.value)}
               placeholder="Get 15% off your first order"
             />
           </div>
@@ -360,7 +401,7 @@ function PopupEditor({ popup, onChange, onSave, onCancel }: PopupEditorProps) {
             <Textarea
               id="popupDescription"
               value={popup.description}
-              onChange={(e) => updateField('description', e.target.value)}
+              onChange={(e) => updateField("description", e.target.value)}
               placeholder="Join our newsletter and receive exclusive deals..."
               className="min-h-[80px]"
             />
@@ -371,7 +412,7 @@ function PopupEditor({ popup, onChange, onSave, onCancel }: PopupEditorProps) {
       {/* Buttons */}
       <div className="space-y-4">
         <h3 className="font-medium">Action Buttons</h3>
-        
+
         <div className="space-y-4">
           {/* Primary Button */}
           <div className="p-4 bg-blue-50 rounded-lg border">
@@ -382,7 +423,7 @@ function PopupEditor({ popup, onChange, onSave, onCancel }: PopupEditorProps) {
                 <Input
                   id="buttonText"
                   value={popup.buttonText}
-                  onChange={(e) => updateField('buttonText', e.target.value)}
+                  onChange={(e) => updateField("buttonText", e.target.value)}
                   placeholder="Get 15% Off"
                 />
               </div>
@@ -391,7 +432,7 @@ function PopupEditor({ popup, onChange, onSave, onCancel }: PopupEditorProps) {
                 <Input
                   id="buttonLink"
                   value={popup.buttonLink}
-                  onChange={(e) => updateField('buttonLink', e.target.value)}
+                  onChange={(e) => updateField("buttonLink", e.target.value)}
                   placeholder="#newsletter or https://..."
                 />
               </div>
@@ -400,14 +441,18 @@ function PopupEditor({ popup, onChange, onSave, onCancel }: PopupEditorProps) {
 
           {/* Secondary Button */}
           <div className="p-4 bg-gray-50 rounded-lg border">
-            <h4 className="font-medium text-gray-900 mb-3">Secondary Button (Optional)</h4>
+            <h4 className="font-medium text-gray-900 mb-3">
+              Secondary Button (Optional)
+            </h4>
             <div className="grid md:grid-cols-2 gap-3">
               <div>
                 <Label htmlFor="secondaryButtonText">Button Text</Label>
                 <Input
                   id="secondaryButtonText"
-                  value={popup.secondaryButtonText || ''}
-                  onChange={(e) => updateField('secondaryButtonText', e.target.value)}
+                  value={popup.secondaryButtonText || ""}
+                  onChange={(e) =>
+                    updateField("secondaryButtonText", e.target.value)
+                  }
                   placeholder="No Thanks"
                 />
               </div>
@@ -415,8 +460,10 @@ function PopupEditor({ popup, onChange, onSave, onCancel }: PopupEditorProps) {
                 <Label htmlFor="secondaryButtonLink">Button Link</Label>
                 <Input
                   id="secondaryButtonLink"
-                  value={popup.secondaryButtonLink || ''}
-                  onChange={(e) => updateField('secondaryButtonLink', e.target.value)}
+                  value={popup.secondaryButtonLink || ""}
+                  onChange={(e) =>
+                    updateField("secondaryButtonLink", e.target.value)
+                  }
                   placeholder="#close or https://..."
                 />
               </div>
@@ -428,15 +475,18 @@ function PopupEditor({ popup, onChange, onSave, onCancel }: PopupEditorProps) {
       {/* Trigger Settings */}
       <div className="space-y-4">
         <h3 className="font-medium">Trigger Settings</h3>
-        
+
         <div>
           <Label htmlFor="popupType">Popup Type</Label>
-          <Select value={popup.type} onValueChange={(value) => updateField('type', value)}>
+          <Select
+            value={popup.type}
+            onValueChange={(value) => updateField("type", value)}
+          >
             <SelectTrigger>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              {popupTypes.map(type => (
+              {popupTypes.map((type) => (
                 <SelectItem key={type.value} value={type.value}>
                   <div className="flex items-center gap-2">
                     <type.icon className="w-4 h-4" />
@@ -453,14 +503,16 @@ function PopupEditor({ popup, onChange, onSave, onCancel }: PopupEditorProps) {
           )}
         </div>
 
-        {popup.type === 'timed' && (
+        {popup.type === "timed" && (
           <div>
             <Label htmlFor="popupDelay">Delay (milliseconds)</Label>
             <Input
               id="popupDelay"
               type="number"
-              value={popup.delay || ''}
-              onChange={(e) => updateField('delay', parseInt(e.target.value) || undefined)}
+              value={popup.delay || ""}
+              onChange={(e) =>
+                updateField("delay", parseInt(e.target.value) || undefined)
+              }
               placeholder="5000"
             />
             <p className="text-xs text-gray-500 mt-1">
@@ -469,7 +521,7 @@ function PopupEditor({ popup, onChange, onSave, onCancel }: PopupEditorProps) {
           </div>
         )}
 
-        {popup.type === 'scroll' && (
+        {popup.type === "scroll" && (
           <div>
             <Label htmlFor="scrollPercentage">Scroll Percentage</Label>
             <Input
@@ -477,8 +529,13 @@ function PopupEditor({ popup, onChange, onSave, onCancel }: PopupEditorProps) {
               type="number"
               min="0"
               max="100"
-              value={popup.scrollPercentage || ''}
-              onChange={(e) => updateField('scrollPercentage', parseInt(e.target.value) || undefined)}
+              value={popup.scrollPercentage || ""}
+              onChange={(e) =>
+                updateField(
+                  "scrollPercentage",
+                  parseInt(e.target.value) || undefined,
+                )
+              }
               placeholder="50"
             />
             <p className="text-xs text-gray-500 mt-1">

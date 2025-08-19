@@ -1,11 +1,24 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Search, Image as ImageIcon, Upload, Tag, Link, Globe } from "lucide-react";
+import {
+  Search,
+  Image as ImageIcon,
+  Upload,
+  Tag,
+  Link,
+  Globe,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import type { SEOSettings } from "@shared/admin-types";
@@ -21,7 +34,7 @@ export function SEOFormWorking({ data, onChange }: SEOFormWorkingProps) {
   const updateField = (field: keyof SEOSettings, value: any) => {
     onChange({
       ...data,
-      [field]: value
+      [field]: value,
     });
   };
 
@@ -32,20 +45,23 @@ export function SEOFormWorking({ data, onChange }: SEOFormWorkingProps) {
       reader.onload = (e) => {
         const result = e.target?.result as string;
         setImagePreview(result);
-        updateField('ogImage', result);
+        updateField("ogImage", result);
       };
       reader.readAsDataURL(file);
     }
   };
 
   const handleKeywordChange = (value: string) => {
-    const keywords = value.split(',').map(k => k.trim()).filter(k => k.length > 0);
-    updateField('keywords', keywords);
+    const keywords = value
+      .split(",")
+      .map((k) => k.trim())
+      .filter((k) => k.length > 0);
+    updateField("keywords", keywords);
   };
 
   const titleLength = data.metaTitle.length;
   const descriptionLength = data.metaDescription.length;
-  const keywordsText = data.keywords.join(', ');
+  const keywordsText = data.keywords.join(", ");
 
   return (
     <motion.div
@@ -61,7 +77,8 @@ export function SEOFormWorking({ data, onChange }: SEOFormWorkingProps) {
             Meta Tags
           </CardTitle>
           <CardDescription>
-            Configure page title and description for search engines and social media
+            Configure page title and description for search engines and social
+            media
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -72,8 +89,14 @@ export function SEOFormWorking({ data, onChange }: SEOFormWorkingProps) {
                 Meta Title *
               </Label>
               <div className="flex items-center gap-2">
-                <Badge 
-                  variant={titleLength > 60 ? "destructive" : titleLength > 50 ? "secondary" : "outline"}
+                <Badge
+                  variant={
+                    titleLength > 60
+                      ? "destructive"
+                      : titleLength > 50
+                        ? "secondary"
+                        : "outline"
+                  }
                   className="text-xs"
                 >
                   {titleLength}/60
@@ -83,12 +106,13 @@ export function SEOFormWorking({ data, onChange }: SEOFormWorkingProps) {
             <Input
               id="metaTitle"
               value={data.metaTitle}
-              onChange={(e) => updateField('metaTitle', e.target.value)}
+              onChange={(e) => updateField("metaTitle", e.target.value)}
               placeholder="Enter your page title..."
               className={titleLength > 60 ? "border-red-300" : ""}
             />
             <p className="text-xs text-gray-500">
-              Optimal length: 50-60 characters. This appears as the clickable headline in search results.
+              Optimal length: 50-60 characters. This appears as the clickable
+              headline in search results.
             </p>
           </div>
 
@@ -98,8 +122,14 @@ export function SEOFormWorking({ data, onChange }: SEOFormWorkingProps) {
               <Label htmlFor="metaDescription" className="text-sm font-medium">
                 Meta Description *
               </Label>
-              <Badge 
-                variant={descriptionLength > 160 ? "destructive" : descriptionLength > 140 ? "secondary" : "outline"}
+              <Badge
+                variant={
+                  descriptionLength > 160
+                    ? "destructive"
+                    : descriptionLength > 140
+                      ? "secondary"
+                      : "outline"
+                }
                 className="text-xs"
               >
                 {descriptionLength}/160
@@ -108,12 +138,13 @@ export function SEOFormWorking({ data, onChange }: SEOFormWorkingProps) {
             <Textarea
               id="metaDescription"
               value={data.metaDescription}
-              onChange={(e) => updateField('metaDescription', e.target.value)}
+              onChange={(e) => updateField("metaDescription", e.target.value)}
               placeholder="Write a compelling description of your page..."
               className={`min-h-[80px] resize-none ${descriptionLength > 160 ? "border-red-300" : ""}`}
             />
             <p className="text-xs text-gray-500">
-              Optimal length: 140-160 characters. This appears as the description in search results.
+              Optimal length: 140-160 characters. This appears as the
+              description in search results.
             </p>
           </div>
 
@@ -131,7 +162,8 @@ export function SEOFormWorking({ data, onChange }: SEOFormWorkingProps) {
               placeholder="snack box, gift, healthy snacks, breakfast bars"
             />
             <p className="text-xs text-gray-500">
-              Enter keywords separated by commas. These help with internal organization and content planning.
+              Enter keywords separated by commas. These help with internal
+              organization and content planning.
             </p>
             {data.keywords.length > 0 && (
               <div className="flex flex-wrap gap-1 mt-2">
@@ -155,14 +187,15 @@ export function SEOFormWorking({ data, onChange }: SEOFormWorkingProps) {
             Social Media Preview
           </CardTitle>
           <CardDescription>
-            Configure how your page appears when shared on social media platforms
+            Configure how your page appears when shared on social media
+            platforms
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           {/* OG Image */}
           <div className="space-y-4">
             <Label className="text-sm font-medium">Open Graph Image</Label>
-            
+
             {imagePreview && (
               <div className="space-y-2">
                 <div className="text-sm text-gray-600">Preview</div>
@@ -174,13 +207,14 @@ export function SEOFormWorking({ data, onChange }: SEOFormWorkingProps) {
                   />
                   <div className="p-3 bg-white border-t">
                     <h4 className="font-medium text-sm text-gray-900 truncate">
-                      {data.metaTitle || 'Page Title'}
+                      {data.metaTitle || "Page Title"}
                     </h4>
                     <p className="text-xs text-gray-600 mt-1 line-clamp-2">
-                      {data.metaDescription || 'Page description will appear here...'}
+                      {data.metaDescription ||
+                        "Page description will appear here..."}
                     </p>
                     <p className="text-xs text-gray-400 mt-1">
-                      {data.canonicalUrl || 'your-domain.com'}
+                      {data.canonicalUrl || "your-domain.com"}
                     </p>
                   </div>
                 </div>
@@ -194,7 +228,7 @@ export function SEOFormWorking({ data, onChange }: SEOFormWorkingProps) {
                   id="ogImage"
                   value={data.ogImage}
                   onChange={(e) => {
-                    updateField('ogImage', e.target.value);
+                    updateField("ogImage", e.target.value);
                     setImagePreview(e.target.value);
                   }}
                   placeholder="https://example.com/social-image.jpg"
@@ -211,7 +245,8 @@ export function SEOFormWorking({ data, onChange }: SEOFormWorkingProps) {
                   className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                 />
                 <p className="text-xs text-gray-500 mt-1">
-                  Recommended: 1200x630px (1.91:1 ratio). Maximum file size: 8MB.
+                  Recommended: 1200x630px (1.91:1 ratio). Maximum file size:
+                  8MB.
                 </p>
               </div>
 
@@ -220,7 +255,7 @@ export function SEOFormWorking({ data, onChange }: SEOFormWorkingProps) {
                 <Input
                   id="ogImageAlt"
                   value={data.ogImageAlt}
-                  onChange={(e) => updateField('ogImageAlt', e.target.value)}
+                  onChange={(e) => updateField("ogImageAlt", e.target.value)}
                   placeholder="Describe the social media image..."
                 />
               </div>
@@ -248,12 +283,13 @@ export function SEOFormWorking({ data, onChange }: SEOFormWorkingProps) {
             </Label>
             <Input
               id="canonicalUrl"
-              value={data.canonicalUrl || ''}
-              onChange={(e) => updateField('canonicalUrl', e.target.value)}
+              value={data.canonicalUrl || ""}
+              onChange={(e) => updateField("canonicalUrl", e.target.value)}
               placeholder="https://yourdomain.com/page-url"
             />
             <p className="text-xs text-gray-500">
-              The preferred URL for this page. Helps prevent duplicate content issues.
+              The preferred URL for this page. Helps prevent duplicate content
+              issues.
             </p>
           </div>
         </CardContent>
@@ -270,13 +306,14 @@ export function SEOFormWorking({ data, onChange }: SEOFormWorkingProps) {
         <CardContent>
           <div className="max-w-lg">
             <div className="text-sm text-blue-700 hover:underline cursor-pointer">
-              {data.metaTitle || 'Page Title - Company Name'}
+              {data.metaTitle || "Page Title - Company Name"}
             </div>
             <div className="text-green-700 text-xs mt-1">
-              {data.canonicalUrl || 'https://your-domain.com/page'}
+              {data.canonicalUrl || "https://your-domain.com/page"}
             </div>
             <div className="text-gray-700 text-sm mt-1 leading-relaxed">
-              {data.metaDescription || 'Page description will appear here. Write a compelling description that encourages clicks.'}
+              {data.metaDescription ||
+                "Page description will appear here. Write a compelling description that encourages clicks."}
             </div>
           </div>
         </CardContent>
@@ -297,8 +334,14 @@ export function SEOFormWorking({ data, onChange }: SEOFormWorkingProps) {
               <div className="space-y-2 text-xs">
                 <div>
                   <span className="font-medium">Title Length:</span>
-                  <Badge 
-                    variant={titleLength > 60 ? "destructive" : titleLength > 50 ? "secondary" : "default"}
+                  <Badge
+                    variant={
+                      titleLength > 60
+                        ? "destructive"
+                        : titleLength > 50
+                          ? "secondary"
+                          : "default"
+                    }
                     className="ml-2 text-xs"
                   >
                     {titleLength} chars
@@ -306,8 +349,14 @@ export function SEOFormWorking({ data, onChange }: SEOFormWorkingProps) {
                 </div>
                 <div>
                   <span className="font-medium">Description Length:</span>
-                  <Badge 
-                    variant={descriptionLength > 160 ? "destructive" : descriptionLength > 140 ? "secondary" : "default"}
+                  <Badge
+                    variant={
+                      descriptionLength > 160
+                        ? "destructive"
+                        : descriptionLength > 140
+                          ? "secondary"
+                          : "default"
+                    }
                     className="ml-2 text-xs"
                   >
                     {descriptionLength} chars
@@ -321,8 +370,11 @@ export function SEOFormWorking({ data, onChange }: SEOFormWorkingProps) {
                 </div>
                 <div>
                   <span className="font-medium">OG Image:</span>
-                  <Badge variant={data.ogImage ? "default" : "secondary"} className="ml-2 text-xs">
-                    {data.ogImage ? 'Set' : 'Not set'}
+                  <Badge
+                    variant={data.ogImage ? "default" : "secondary"}
+                    className="ml-2 text-xs"
+                  >
+                    {data.ogImage ? "Set" : "Not set"}
                   </Badge>
                 </div>
               </div>
@@ -333,26 +385,50 @@ export function SEOFormWorking({ data, onChange }: SEOFormWorkingProps) {
               <div className="space-y-2">
                 <div className="flex items-center justify-between text-xs">
                   <span>Title Optimization</span>
-                  <Badge variant={titleLength >= 50 && titleLength <= 60 ? "default" : "secondary"}>
-                    {titleLength >= 50 && titleLength <= 60 ? 'Good' : 'Needs work'}
+                  <Badge
+                    variant={
+                      titleLength >= 50 && titleLength <= 60
+                        ? "default"
+                        : "secondary"
+                    }
+                  >
+                    {titleLength >= 50 && titleLength <= 60
+                      ? "Good"
+                      : "Needs work"}
                   </Badge>
                 </div>
                 <div className="flex items-center justify-between text-xs">
                   <span>Description Optimization</span>
-                  <Badge variant={descriptionLength >= 140 && descriptionLength <= 160 ? "default" : "secondary"}>
-                    {descriptionLength >= 140 && descriptionLength <= 160 ? 'Good' : 'Needs work'}
+                  <Badge
+                    variant={
+                      descriptionLength >= 140 && descriptionLength <= 160
+                        ? "default"
+                        : "secondary"
+                    }
+                  >
+                    {descriptionLength >= 140 && descriptionLength <= 160
+                      ? "Good"
+                      : "Needs work"}
                   </Badge>
                 </div>
                 <div className="flex items-center justify-between text-xs">
                   <span>Social Media Ready</span>
-                  <Badge variant={data.ogImage && data.ogImageAlt ? "default" : "secondary"}>
-                    {data.ogImage && data.ogImageAlt ? 'Yes' : 'No'}
+                  <Badge
+                    variant={
+                      data.ogImage && data.ogImageAlt ? "default" : "secondary"
+                    }
+                  >
+                    {data.ogImage && data.ogImageAlt ? "Yes" : "No"}
                   </Badge>
                 </div>
                 <div className="flex items-center justify-between text-xs">
                   <span>Keywords</span>
-                  <Badge variant={data.keywords.length >= 3 ? "default" : "secondary"}>
-                    {data.keywords.length >= 3 ? 'Good' : 'Add more'}
+                  <Badge
+                    variant={
+                      data.keywords.length >= 3 ? "default" : "secondary"
+                    }
+                  >
+                    {data.keywords.length >= 3 ? "Good" : "Add more"}
                   </Badge>
                 </div>
               </div>
@@ -368,11 +444,21 @@ export function SEOFormWorking({ data, onChange }: SEOFormWorkingProps) {
         </CardHeader>
         <CardContent className="text-sm text-blue-800 space-y-2">
           <ul className="list-disc list-inside space-y-1">
-            <li>Include your main keyword in the title (preferably at the beginning)</li>
-            <li>Write unique, compelling meta descriptions that encourage clicks</li>
+            <li>
+              Include your main keyword in the title (preferably at the
+              beginning)
+            </li>
+            <li>
+              Write unique, compelling meta descriptions that encourage clicks
+            </li>
             <li>Use high-quality, relevant images for social media sharing</li>
-            <li>Keep titles under 60 characters and descriptions under 160 characters</li>
-            <li>Make sure your content matches what the meta description promises</li>
+            <li>
+              Keep titles under 60 characters and descriptions under 160
+              characters
+            </li>
+            <li>
+              Make sure your content matches what the meta description promises
+            </li>
             <li>Use descriptive alt text for all images for accessibility</li>
           </ul>
         </CardContent>

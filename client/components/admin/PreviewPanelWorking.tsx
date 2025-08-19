@@ -1,8 +1,21 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Eye, Monitor, Smartphone, Tablet, ExternalLink, RefreshCw } from "lucide-react";
+import {
+  Eye,
+  Monitor,
+  Smartphone,
+  Tablet,
+  ExternalLink,
+  RefreshCw,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -14,28 +27,34 @@ interface PreviewPanelWorkingProps {
 }
 
 export function PreviewPanelWorking({ data }: PreviewPanelWorkingProps) {
-  const [activeDevice, setActiveDevice] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
+  const [activeDevice, setActiveDevice] = useState<
+    "desktop" | "tablet" | "mobile"
+  >("desktop");
   const [refreshKey, setRefreshKey] = useState(0);
 
   const handleRefresh = () => {
-    setRefreshKey(prev => prev + 1);
+    setRefreshKey((prev) => prev + 1);
   };
 
   const deviceSizes = {
-    desktop: { width: '100%', height: '600px' },
-    tablet: { width: '768px', height: '1024px' },
-    mobile: { width: '375px', height: '667px' }
+    desktop: { width: "100%", height: "600px" },
+    tablet: { width: "768px", height: "1024px" },
+    mobile: { width: "375px", height: "667px" },
   };
 
   const currentSize = deviceSizes[activeDevice];
 
   // Generate preview data summary
   const getDataSummary = () => {
-    const enabledFeatures = data.features.filter(f => f.enabled).length;
-    const enabledPopups = data.popups.filter(p => p.enabled).length;
-    const avgRating = data.testimonials.length > 0 
-      ? (data.testimonials.reduce((sum, t) => sum + t.rating, 0) / data.testimonials.length).toFixed(1)
-      : '0';
+    const enabledFeatures = data.features.filter((f) => f.enabled).length;
+    const enabledPopups = data.popups.filter((p) => p.enabled).length;
+    const avgRating =
+      data.testimonials.length > 0
+        ? (
+            data.testimonials.reduce((sum, t) => sum + t.rating, 0) /
+            data.testimonials.length
+          ).toFixed(1)
+        : "0";
 
     return {
       enabledFeatures,
@@ -44,7 +63,10 @@ export function PreviewPanelWorking({ data }: PreviewPanelWorkingProps) {
       avgRating,
       enabledPopups,
       totalPopups: data.popups.length,
-      seoScore: data.seo.metaTitle && data.seo.metaDescription ? 'Good' : 'Needs Improvement'
+      seoScore:
+        data.seo.metaTitle && data.seo.metaDescription
+          ? "Good"
+          : "Needs Improvement",
     };
   };
 
@@ -77,7 +99,7 @@ export function PreviewPanelWorking({ data }: PreviewPanelWorkingProps) {
                 <RefreshCw className="h-4 w-4 mr-2" />
                 Refresh
               </Button>
-              <Button onClick={() => window.open('/', '_blank')}>
+              <Button onClick={() => window.open("/", "_blank")}>
                 <ExternalLink className="h-4 w-4 mr-2" />
                 Open Live Site
               </Button>
@@ -99,21 +121,21 @@ export function PreviewPanelWorking({ data }: PreviewPanelWorkingProps) {
               </div>
               <div className="text-sm text-blue-700">Features Active</div>
             </div>
-            
+
             <div className="text-center p-3 bg-green-50 rounded-lg border border-green-200">
               <div className="text-2xl font-bold text-green-600">
                 {summary.testimonials}
               </div>
               <div className="text-sm text-green-700">Testimonials</div>
             </div>
-            
+
             <div className="text-center p-3 bg-yellow-50 rounded-lg border border-yellow-200">
               <div className="text-2xl font-bold text-yellow-600">
                 {summary.avgRating}⭐
               </div>
               <div className="text-sm text-yellow-700">Avg Rating</div>
             </div>
-            
+
             <div className="text-center p-3 bg-purple-50 rounded-lg border border-purple-200">
               <div className="text-2xl font-bold text-purple-600">
                 {summary.enabledPopups}
@@ -125,7 +147,9 @@ export function PreviewPanelWorking({ data }: PreviewPanelWorkingProps) {
           <div className="mt-4 p-3 bg-gray-50 rounded-lg">
             <div className="flex items-center justify-between text-sm">
               <span className="text-gray-600">SEO Status:</span>
-              <Badge variant={summary.seoScore === 'Good' ? 'default' : 'secondary'}>
+              <Badge
+                variant={summary.seoScore === "Good" ? "default" : "secondary"}
+              >
                 {summary.seoScore}
               </Badge>
             </div>
@@ -140,25 +164,25 @@ export function PreviewPanelWorking({ data }: PreviewPanelWorkingProps) {
             <CardTitle>Device Preview</CardTitle>
             <div className="flex items-center gap-2">
               <Button
-                variant={activeDevice === 'desktop' ? 'default' : 'outline'}
+                variant={activeDevice === "desktop" ? "default" : "outline"}
                 size="sm"
-                onClick={() => setActiveDevice('desktop')}
+                onClick={() => setActiveDevice("desktop")}
               >
                 <Monitor className="h-4 w-4 mr-2" />
                 Desktop
               </Button>
               <Button
-                variant={activeDevice === 'tablet' ? 'default' : 'outline'}
+                variant={activeDevice === "tablet" ? "default" : "outline"}
                 size="sm"
-                onClick={() => setActiveDevice('tablet')}
+                onClick={() => setActiveDevice("tablet")}
               >
                 <Tablet className="h-4 w-4 mr-2" />
                 Tablet
               </Button>
               <Button
-                variant={activeDevice === 'mobile' ? 'default' : 'outline'}
+                variant={activeDevice === "mobile" ? "default" : "outline"}
                 size="sm"
-                onClick={() => setActiveDevice('mobile')}
+                onClick={() => setActiveDevice("mobile")}
               >
                 <Smartphone className="h-4 w-4 mr-2" />
                 Mobile
@@ -168,24 +192,26 @@ export function PreviewPanelWorking({ data }: PreviewPanelWorkingProps) {
         </CardHeader>
         <CardContent>
           <div className="flex justify-center">
-            <div 
+            <div
               className={cn(
                 "border rounded-lg overflow-hidden bg-white shadow-lg transition-all duration-300",
-                activeDevice === 'mobile' && "rounded-3xl border-8 border-gray-800"
+                activeDevice === "mobile" &&
+                  "rounded-3xl border-8 border-gray-800",
               )}
               style={{
                 width: currentSize.width,
                 height: currentSize.height,
-                maxWidth: '100%'
+                maxWidth: "100%",
               }}
             >
               <iframe
                 key={refreshKey}
                 src="/"
                 className="w-full h-full"
-                style={{ 
-                  transform: activeDevice === 'mobile' ? 'scale(0.8)' : 'scale(1)',
-                  transformOrigin: 'top left'
+                style={{
+                  transform:
+                    activeDevice === "mobile" ? "scale(0.8)" : "scale(1)",
+                  transformOrigin: "top left",
                 }}
                 title="Landing page preview"
               />
@@ -217,16 +243,28 @@ export function PreviewPanelWorking({ data }: PreviewPanelWorkingProps) {
                 <div>
                   <h4 className="font-medium mb-2">Content</h4>
                   <div className="space-y-2 text-sm">
-                    <div><strong>Title:</strong> {data.hero.title || 'Not set'}</div>
-                    <div><strong>Price:</strong> ${data.hero.salePrice}</div>
-                    <div><strong>Rating:</strong> {data.hero.rating}/5 ({data.hero.ratingReviews} reviews)</div>
+                    <div>
+                      <strong>Title:</strong> {data.hero.title || "Not set"}
+                    </div>
+                    <div>
+                      <strong>Price:</strong> ${data.hero.salePrice}
+                    </div>
+                    <div>
+                      <strong>Rating:</strong> {data.hero.rating}/5 (
+                      {data.hero.ratingReviews} reviews)
+                    </div>
                   </div>
                 </div>
                 <div>
                   <h4 className="font-medium mb-2">Buttons</h4>
                   <div className="space-y-2 text-sm">
-                    <div><strong>Primary:</strong> {data.hero.primaryButtonText}</div>
-                    <div><strong>Secondary:</strong> {data.hero.secondaryButtonText}</div>
+                    <div>
+                      <strong>Primary:</strong> {data.hero.primaryButtonText}
+                    </div>
+                    <div>
+                      <strong>Secondary:</strong>{" "}
+                      {data.hero.secondaryButtonText}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -235,13 +273,18 @@ export function PreviewPanelWorking({ data }: PreviewPanelWorkingProps) {
             <TabsContent value="features" className="space-y-4">
               <div className="space-y-3">
                 {data.features.map((feature, index) => (
-                  <div key={feature.id} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                  <div
+                    key={feature.id}
+                    className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg"
+                  >
                     <Badge variant={feature.enabled ? "default" : "secondary"}>
-                      {feature.enabled ? 'Active' : 'Disabled'}
+                      {feature.enabled ? "Active" : "Disabled"}
                     </Badge>
                     <div className="flex-1">
                       <div className="font-medium">{feature.title}</div>
-                      <div className="text-sm text-gray-600">{feature.description}</div>
+                      <div className="text-sm text-gray-600">
+                        {feature.description}
+                      </div>
                     </div>
                     <div className="text-sm text-gray-500">
                       Order: {feature.order}
@@ -254,16 +297,23 @@ export function PreviewPanelWorking({ data }: PreviewPanelWorkingProps) {
             <TabsContent value="testimonials" className="space-y-4">
               <div className="space-y-3">
                 {data.testimonials.map((testimonial) => (
-                  <div key={testimonial.id} className="p-3 bg-gray-50 rounded-lg">
+                  <div
+                    key={testimonial.id}
+                    className="p-3 bg-gray-50 rounded-lg"
+                  >
                     <div className="flex items-center gap-2 mb-2">
                       <div className="font-medium">{testimonial.name}</div>
                       <div className="flex">
                         {[...Array(testimonial.rating)].map((_, i) => (
-                          <span key={i} className="text-yellow-400">⭐</span>
+                          <span key={i} className="text-yellow-400">
+                            ⭐
+                          </span>
                         ))}
                       </div>
                     </div>
-                    <div className="text-sm text-gray-600">"{testimonial.review}"</div>
+                    <div className="text-sm text-gray-600">
+                      "{testimonial.review}"
+                    </div>
                   </div>
                 ))}
               </div>
@@ -274,13 +324,13 @@ export function PreviewPanelWorking({ data }: PreviewPanelWorkingProps) {
                 <div>
                   <h4 className="font-medium">Meta Title</h4>
                   <div className="text-sm text-gray-600 p-2 bg-gray-50 rounded">
-                    {data.seo.metaTitle || 'Not set'}
+                    {data.seo.metaTitle || "Not set"}
                   </div>
                 </div>
                 <div>
                   <h4 className="font-medium">Meta Description</h4>
                   <div className="text-sm text-gray-600 p-2 bg-gray-50 rounded">
-                    {data.seo.metaDescription || 'Not set'}
+                    {data.seo.metaDescription || "Not set"}
                   </div>
                 </div>
                 <div>
@@ -304,13 +354,18 @@ export function PreviewPanelWorking({ data }: PreviewPanelWorkingProps) {
                   </Alert>
                 ) : (
                   data.popups.map((popup) => (
-                    <div key={popup.id} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                    <div
+                      key={popup.id}
+                      className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg"
+                    >
                       <Badge variant={popup.enabled ? "default" : "secondary"}>
-                        {popup.enabled ? 'Active' : 'Disabled'}
+                        {popup.enabled ? "Active" : "Disabled"}
                       </Badge>
                       <div className="flex-1">
                         <div className="font-medium">{popup.title}</div>
-                        <div className="text-sm text-gray-600">{popup.type} popup</div>
+                        <div className="text-sm text-gray-600">
+                          {popup.type} popup
+                        </div>
                       </div>
                     </div>
                   ))
@@ -329,10 +384,19 @@ export function PreviewPanelWorking({ data }: PreviewPanelWorkingProps) {
         <CardContent className="text-sm text-amber-800 space-y-2">
           <ul className="list-disc list-inside space-y-1">
             <li>This preview shows the live site with your current settings</li>
-            <li>Changes made in the admin panel may require saving to appear in preview</li>
-            <li>Some interactive features (like popups) may behave differently in the iframe</li>
+            <li>
+              Changes made in the admin panel may require saving to appear in
+              preview
+            </li>
+            <li>
+              Some interactive features (like popups) may behave differently in
+              the iframe
+            </li>
             <li>Use "Open Live Site" to test the full user experience</li>
-            <li>Mobile preview is scaled for visibility - actual mobile experience may differ</li>
+            <li>
+              Mobile preview is scaled for visibility - actual mobile experience
+              may differ
+            </li>
           </ul>
         </CardContent>
       </Card>

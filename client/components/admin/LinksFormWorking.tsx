@@ -1,13 +1,39 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Plus, Trash2, Edit, Link as LinkIcon, ExternalLink, Save, X } from "lucide-react";
+import {
+  Plus,
+  Trash2,
+  Edit,
+  Link as LinkIcon,
+  ExternalLink,
+  Save,
+  X,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import type { LinkSettings } from "@shared/admin-types";
 
@@ -17,14 +43,21 @@ interface LinksFormWorkingProps {
 }
 
 const categoryOptions = [
-  { value: 'social', label: 'Social Media', color: 'blue' },
-  { value: 'footer', label: 'Footer Link', color: 'gray' },
-  { value: 'button', label: 'Button Link', color: 'green' },
-  { value: 'navigation', label: 'Navigation', color: 'purple' }
+  { value: "social", label: "Social Media", color: "blue" },
+  { value: "footer", label: "Footer Link", color: "gray" },
+  { value: "button", label: "Button Link", color: "green" },
+  { value: "navigation", label: "Navigation", color: "purple" },
 ];
 
 const socialIcons = [
-  'Facebook', 'Instagram', 'Twitter', 'Youtube', 'LinkedIn', 'TikTok', 'Pinterest', 'Snapchat'
+  "Facebook",
+  "Instagram",
+  "Twitter",
+  "Youtube",
+  "LinkedIn",
+  "TikTok",
+  "Pinterest",
+  "Snapchat",
 ];
 
 export function LinksFormWorking({ data, onChange }: LinksFormWorkingProps) {
@@ -35,14 +68,14 @@ export function LinksFormWorking({ data, onChange }: LinksFormWorkingProps) {
 
   const createNewLink = (): LinkSettings => ({
     id: generateId(),
-    label: '',
-    url: '',
-    category: 'footer',
-    target: '_blank'
+    label: "",
+    url: "",
+    category: "footer",
+    target: "_blank",
   });
 
   const handleDelete = (id: string) => {
-    const updated = data.filter(link => link.id !== id);
+    const updated = data.filter((link) => link.id !== id);
     onChange(updated);
   };
 
@@ -51,7 +84,7 @@ export function LinksFormWorking({ data, onChange }: LinksFormWorkingProps) {
       onChange([...data, link]);
       setIsAddingNew(false);
     } else {
-      const updated = data.map(l => l.id === link.id ? link : l);
+      const updated = data.map((l) => (l.id === link.id ? link : l));
       onChange(updated);
     }
     setEditingLink(null);
@@ -67,11 +100,14 @@ export function LinksFormWorking({ data, onChange }: LinksFormWorkingProps) {
     setIsAddingNew(true);
   };
 
-  const groupedLinks = data.reduce((acc, link) => {
-    if (!acc[link.category]) acc[link.category] = [];
-    acc[link.category].push(link);
-    return acc;
-  }, {} as Record<string, LinkSettings[]>);
+  const groupedLinks = data.reduce(
+    (acc, link) => {
+      if (!acc[link.category]) acc[link.category] = [];
+      acc[link.category].push(link);
+      return acc;
+    },
+    {} as Record<string, LinkSettings[]>,
+  );
 
   return (
     <motion.div
@@ -86,13 +122,12 @@ export function LinksFormWorking({ data, onChange }: LinksFormWorkingProps) {
             <div>
               <CardTitle>Links & Navigation</CardTitle>
               <CardDescription>
-                Manage all links, social media connections, and navigation elements
+                Manage all links, social media connections, and navigation
+                elements
               </CardDescription>
             </div>
             <div className="flex items-center gap-3">
-              <Badge variant="outline">
-                {data.length} links total
-              </Badge>
+              <Badge variant="outline">{data.length} links total</Badge>
               <Button onClick={handleAddNew}>
                 <Plus className="h-4 w-4 mr-2" />
                 Add Link
@@ -104,13 +139,16 @@ export function LinksFormWorking({ data, onChange }: LinksFormWorkingProps) {
 
       {/* Links by Category */}
       <div className="space-y-6">
-        {categoryOptions.map(category => {
+        {categoryOptions.map((category) => {
           const links = groupedLinks[category.value] || [];
           return (
             <Card key={category.value}>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg">
-                  <Badge variant="outline" className={`bg-${category.color}-50 text-${category.color}-700`}>
+                  <Badge
+                    variant="outline"
+                    className={`bg-${category.color}-50 text-${category.color}-700`}
+                  >
                     {links.length}
                   </Badge>
                   {category.label}
@@ -138,7 +176,7 @@ export function LinksFormWorking({ data, onChange }: LinksFormWorkingProps) {
                             </div>
                             <div className="text-sm text-gray-500 flex items-center gap-1">
                               {link.url}
-                              {link.target === '_blank' && (
+                              {link.target === "_blank" && (
                                 <ExternalLink className="h-3 w-3" />
                               )}
                             </div>
@@ -172,16 +210,19 @@ export function LinksFormWorking({ data, onChange }: LinksFormWorkingProps) {
       </div>
 
       {/* Edit/Add Modal */}
-      <Dialog open={!!editingLink} onOpenChange={(open) => {
-        if (!open) {
-          setEditingLink(null);
-          setIsAddingNew(false);
-        }
-      }}>
+      <Dialog
+        open={!!editingLink}
+        onOpenChange={(open) => {
+          if (!open) {
+            setEditingLink(null);
+            setIsAddingNew(false);
+          }
+        }}
+      >
         <DialogContent className="max-w-lg">
           <DialogHeader>
             <DialogTitle>
-              {isAddingNew ? 'Add New Link' : 'Edit Link'}
+              {isAddingNew ? "Add New Link" : "Edit Link"}
             </DialogTitle>
             <DialogDescription>
               Configure the link details and destination
@@ -217,17 +258,17 @@ function LinkEditor({ link, onChange, onSave, onCancel }: LinkEditorProps) {
   const updateField = (field: keyof LinkSettings, value: any) => {
     onChange({
       ...link,
-      [field]: value
+      [field]: value,
     });
   };
 
   const handleSave = () => {
     if (!link.label.trim()) {
-      alert('Please enter a link label');
+      alert("Please enter a link label");
       return;
     }
     if (!link.url.trim()) {
-      alert('Please enter a URL');
+      alert("Please enter a URL");
       return;
     }
     onSave(link);
@@ -240,7 +281,7 @@ function LinkEditor({ link, onChange, onSave, onCancel }: LinkEditorProps) {
         <Input
           id="linkLabel"
           value={link.label}
-          onChange={(e) => updateField('label', e.target.value)}
+          onChange={(e) => updateField("label", e.target.value)}
           placeholder="e.g., Facebook, About Us, Contact"
         />
       </div>
@@ -250,19 +291,22 @@ function LinkEditor({ link, onChange, onSave, onCancel }: LinkEditorProps) {
         <Input
           id="linkUrl"
           value={link.url}
-          onChange={(e) => updateField('url', e.target.value)}
+          onChange={(e) => updateField("url", e.target.value)}
           placeholder="https://example.com"
         />
       </div>
 
       <div>
         <Label htmlFor="linkCategory">Category</Label>
-        <Select value={link.category} onValueChange={(value) => updateField('category', value)}>
+        <Select
+          value={link.category}
+          onValueChange={(value) => updateField("category", value)}
+        >
           <SelectTrigger>
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            {categoryOptions.map(cat => (
+            {categoryOptions.map((cat) => (
               <SelectItem key={cat.value} value={cat.value}>
                 {cat.label}
               </SelectItem>
@@ -271,15 +315,18 @@ function LinkEditor({ link, onChange, onSave, onCancel }: LinkEditorProps) {
         </Select>
       </div>
 
-      {link.category === 'social' && (
+      {link.category === "social" && (
         <div>
           <Label htmlFor="linkIcon">Social Icon</Label>
-          <Select value={link.icon || ''} onValueChange={(value) => updateField('icon', value)}>
+          <Select
+            value={link.icon || ""}
+            onValueChange={(value) => updateField("icon", value)}
+          >
             <SelectTrigger>
               <SelectValue placeholder="Select social platform" />
             </SelectTrigger>
             <SelectContent>
-              {socialIcons.map(icon => (
+              {socialIcons.map((icon) => (
                 <SelectItem key={icon} value={icon}>
                   {icon}
                 </SelectItem>
@@ -291,7 +338,10 @@ function LinkEditor({ link, onChange, onSave, onCancel }: LinkEditorProps) {
 
       <div>
         <Label htmlFor="linkTarget">Open In</Label>
-        <Select value={link.target} onValueChange={(value) => updateField('target', value)}>
+        <Select
+          value={link.target}
+          onValueChange={(value) => updateField("target", value)}
+        >
           <SelectTrigger>
             <SelectValue />
           </SelectTrigger>

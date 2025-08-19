@@ -1,9 +1,18 @@
 import { useState } from "react";
 import { FileText, Save, RotateCcw, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { defaultLandingPageData, type LandingPageData } from "@shared/admin-types";
+import {
+  defaultLandingPageData,
+  type LandingPageData,
+} from "@shared/admin-types";
 import { HeroFormWorking } from "@/components/admin/HeroFormWorking";
 
 export default function AdminSimple() {
@@ -11,16 +20,16 @@ export default function AdminSimple() {
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
   const updateData = (section: keyof LandingPageData, newData: any) => {
-    setData(prev => ({
+    setData((prev) => ({
       ...prev,
       [section]: newData,
-      lastUpdated: new Date().toISOString()
+      lastUpdated: new Date().toISOString(),
     }));
     setHasUnsavedChanges(true);
   };
 
   const handleSave = async () => {
-    console.log('Saving data:', data);
+    console.log("Saving data:", data);
     setHasUnsavedChanges(false);
   };
 
@@ -51,23 +60,17 @@ export default function AdminSimple() {
                     Unsaved Changes
                   </Badge>
                 )}
-                <Button 
-                  onClick={handleSave}
-                  disabled={!hasUnsavedChanges}
-                >
+                <Button onClick={handleSave} disabled={!hasUnsavedChanges}>
                   <Save className="mr-2 h-4 w-4" />
                   Save Changes
                 </Button>
-                <Button 
-                  variant="outline" 
-                  onClick={handleReset}
-                >
+                <Button variant="outline" onClick={handleReset}>
                   <RotateCcw className="mr-2 h-4 w-4" />
                   Reset
                 </Button>
-                <Button 
-                  variant="outline" 
-                  onClick={() => window.open('/', '_blank')}
+                <Button
+                  variant="outline"
+                  onClick={() => window.open("/", "_blank")}
                 >
                   <Home className="mr-2 h-4 w-4" />
                   View Live Site
@@ -80,9 +83,9 @@ export default function AdminSimple() {
 
       {/* Hero Form */}
       <div className="max-w-4xl mx-auto">
-        <HeroFormWorking 
-          data={data.hero} 
-          onChange={(heroData) => updateData('hero', heroData)} 
+        <HeroFormWorking
+          data={data.hero}
+          onChange={(heroData) => updateData("hero", heroData)}
         />
       </div>
     </div>

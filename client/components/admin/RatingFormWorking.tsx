@@ -2,9 +2,21 @@ import { motion } from "framer-motion";
 import { Star, Users, Eye, EyeOff } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import type { RatingSettings } from "@shared/admin-types";
 import { cn } from "@/lib/utils";
@@ -18,7 +30,7 @@ export function RatingFormWorking({ data, onChange }: RatingFormWorkingProps) {
   const updateField = (field: keyof RatingSettings, value: any) => {
     onChange({
       ...data,
-      [field]: value
+      [field]: value,
     });
   };
 
@@ -26,26 +38,21 @@ export function RatingFormWorking({ data, onChange }: RatingFormWorkingProps) {
     const stars = [];
     for (let i = 1; i <= data.maxStars; i++) {
       let starClass = "text-gray-300";
-      
+
       if (i <= Math.floor(rating)) {
         starClass = "text-yellow-400 fill-current";
       } else if (i === Math.ceil(rating)) {
         // Partial star
-        if (style === 'half' && rating % 1 >= 0.5) {
+        if (style === "half" && rating % 1 >= 0.5) {
           starClass = "text-yellow-400 fill-current";
-        } else if (style === 'three-quarters' && rating % 1 >= 0.75) {
+        } else if (style === "three-quarters" && rating % 1 >= 0.75) {
           starClass = "text-yellow-400 fill-current";
-        } else if (style === 'full') {
+        } else if (style === "full") {
           starClass = "text-yellow-400 fill-current";
         }
       }
 
-      stars.push(
-        <Star
-          key={i}
-          className={cn("h-5 w-5", starClass)}
-        />
-      );
+      stars.push(<Star key={i} className={cn("h-5 w-5", starClass)} />);
     }
     return stars;
   };
@@ -64,7 +71,8 @@ export function RatingFormWorking({ data, onChange }: RatingFormWorkingProps) {
             Rating Configuration
           </CardTitle>
           <CardDescription>
-            Configure how customer ratings are displayed across your landing page
+            Configure how customer ratings are displayed across your landing
+            page
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -81,7 +89,9 @@ export function RatingFormWorking({ data, onChange }: RatingFormWorkingProps) {
                 min="0"
                 max={data.maxStars}
                 value={data.value}
-                onChange={(e) => updateField('value', parseFloat(e.target.value) || 0)}
+                onChange={(e) =>
+                  updateField("value", parseFloat(e.target.value) || 0)
+                }
                 placeholder="4.6"
               />
               <p className="text-xs text-gray-500">
@@ -99,7 +109,9 @@ export function RatingFormWorking({ data, onChange }: RatingFormWorkingProps) {
                 min="3"
                 max="10"
                 value={data.maxStars}
-                onChange={(e) => updateField('maxStars', parseInt(e.target.value) || 5)}
+                onChange={(e) =>
+                  updateField("maxStars", parseInt(e.target.value) || 5)
+                }
                 placeholder="5"
               />
               <p className="text-xs text-gray-500">
@@ -118,7 +130,9 @@ export function RatingFormWorking({ data, onChange }: RatingFormWorkingProps) {
               type="number"
               min="0"
               value={data.reviewCount}
-              onChange={(e) => updateField('reviewCount', parseInt(e.target.value) || 0)}
+              onChange={(e) =>
+                updateField("reviewCount", parseInt(e.target.value) || 0)
+              }
               placeholder="23"
             />
             <p className="text-xs text-gray-500">
@@ -131,14 +145,19 @@ export function RatingFormWorking({ data, onChange }: RatingFormWorkingProps) {
             <Label htmlFor="ratingStyle" className="text-sm font-medium">
               Star Display Style
             </Label>
-            <Select value={data.style} onValueChange={(value) => updateField('style', value)}>
+            <Select
+              value={data.style}
+              onValueChange={(value) => updateField("style", value)}
+            >
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="full">Full Stars Only</SelectItem>
                 <SelectItem value="half">Half Star Precision</SelectItem>
-                <SelectItem value="three-quarters">Three-Quarter Precision</SelectItem>
+                <SelectItem value="three-quarters">
+                  Three-Quarter Precision
+                </SelectItem>
               </SelectContent>
             </Select>
             <p className="text-xs text-gray-500">
@@ -160,9 +179,7 @@ export function RatingFormWorking({ data, onChange }: RatingFormWorkingProps) {
           {/* Current Preview */}
           <div className="p-4 bg-gray-50 rounded-lg border">
             <div className="flex items-center gap-3">
-              <div className="flex">
-                {renderStars(data.style)}
-              </div>
+              <div className="flex">{renderStars(data.style)}</div>
               <span className="font-semibold text-gray-700">
                 {data.value} ⭐
               </span>
@@ -175,16 +192,17 @@ export function RatingFormWorking({ data, onChange }: RatingFormWorkingProps) {
           {/* Style Comparisons */}
           <div className="space-y-3">
             <h4 className="font-medium text-sm">Style Comparisons:</h4>
-            
+
             <div className="grid gap-3">
-              {['full', 'half', 'three-quarters'].map((style) => (
-                <div key={style} className="flex items-center justify-between p-3 bg-white border rounded">
+              {["full", "half", "three-quarters"].map((style) => (
+                <div
+                  key={style}
+                  className="flex items-center justify-between p-3 bg-white border rounded"
+                >
                   <div className="flex items-center gap-3">
-                    <div className="flex">
-                      {renderStars(style)}
-                    </div>
+                    <div className="flex">{renderStars(style)}</div>
                     <span className="text-sm font-medium capitalize">
-                      {style.replace('-', ' ')} Style
+                      {style.replace("-", " ")} Style
                     </span>
                   </div>
                   {data.style === style && (
@@ -226,7 +244,7 @@ export function RatingFormWorking({ data, onChange }: RatingFormWorkingProps) {
             </div>
             <Switch
               checked={data.showInHero}
-              onCheckedChange={(checked) => updateField('showInHero', checked)}
+              onCheckedChange={(checked) => updateField("showInHero", checked)}
             />
           </div>
 
@@ -237,7 +255,9 @@ export function RatingFormWorking({ data, onChange }: RatingFormWorkingProps) {
                 <Users className="h-5 w-5 text-green-600" />
               </div>
               <div>
-                <h4 className="font-medium text-green-900">Trust/Seller Section</h4>
+                <h4 className="font-medium text-green-900">
+                  Trust/Seller Section
+                </h4>
                 <p className="text-sm text-green-700">
                   Show rating in the trust badges and seller information area
                 </p>
@@ -245,7 +265,7 @@ export function RatingFormWorking({ data, onChange }: RatingFormWorkingProps) {
             </div>
             <Switch
               checked={data.showInTrust}
-              onCheckedChange={(checked) => updateField('showInTrust', checked)}
+              onCheckedChange={(checked) => updateField("showInTrust", checked)}
             />
           </div>
 
@@ -253,9 +273,18 @@ export function RatingFormWorking({ data, onChange }: RatingFormWorkingProps) {
           <div className="pt-4 border-t">
             <div className="flex items-center gap-2 text-sm text-gray-600">
               <Badge variant="outline" className="text-xs">
-                {[data.showInHero, data.showInTrust].filter(Boolean).length} locations enabled
+                {[data.showInHero, data.showInTrust].filter(Boolean).length}{" "}
+                locations enabled
               </Badge>
-              Rating will appear in {data.showInHero && data.showInTrust ? 'both' : data.showInHero ? 'hero' : data.showInTrust ? 'trust' : 'no'} section{data.showInHero && data.showInTrust ? 's' : ''}
+              Rating will appear in{" "}
+              {data.showInHero && data.showInTrust
+                ? "both"
+                : data.showInHero
+                  ? "hero"
+                  : data.showInTrust
+                    ? "trust"
+                    : "no"}{" "}
+              section{data.showInHero && data.showInTrust ? "s" : ""}
             </div>
           </div>
         </CardContent>
@@ -273,26 +302,32 @@ export function RatingFormWorking({ data, onChange }: RatingFormWorkingProps) {
           <div className="space-y-4">
             {data.showInHero && (
               <div className="bg-white rounded-lg p-4 border">
-                <h4 className="text-sm font-medium mb-2">Hero Section Preview</h4>
+                <h4 className="text-sm font-medium mb-2">
+                  Hero Section Preview
+                </h4>
                 <div className="flex items-center gap-2">
-                  <div className="flex">
-                    {renderStars(data.style)}
-                  </div>
-                  <span className="font-semibold text-gray-700">{data.value} ⭐</span>
-                  <span className="text-gray-600">from {data.reviewCount} reviews</span>
+                  <div className="flex">{renderStars(data.style)}</div>
+                  <span className="font-semibold text-gray-700">
+                    {data.value} ⭐
+                  </span>
+                  <span className="text-gray-600">
+                    from {data.reviewCount} reviews
+                  </span>
                 </div>
               </div>
             )}
 
             {data.showInTrust && (
               <div className="bg-white rounded-lg p-4 border">
-                <h4 className="text-sm font-medium mb-2">Trust Section Preview</h4>
+                <h4 className="text-sm font-medium mb-2">
+                  Trust Section Preview
+                </h4>
                 <div className="flex items-center gap-2">
-                  <div className="flex">
-                    {renderStars(data.style)}
-                  </div>
+                  <div className="flex">{renderStars(data.style)}</div>
                   <span className="text-sm font-medium">Pro Seller</span>
-                  <span className="text-sm text-gray-600">from {data.reviewCount} reviews</span>
+                  <span className="text-sm text-gray-600">
+                    from {data.reviewCount} reviews
+                  </span>
                 </div>
               </div>
             )}
@@ -309,15 +344,28 @@ export function RatingFormWorking({ data, onChange }: RatingFormWorkingProps) {
       {/* Best Practices */}
       <Card className="border-amber-200 bg-amber-50">
         <CardHeader>
-          <CardTitle className="text-amber-900">Rating Best Practices</CardTitle>
+          <CardTitle className="text-amber-900">
+            Rating Best Practices
+          </CardTitle>
         </CardHeader>
         <CardContent className="text-sm text-amber-800 space-y-2">
           <ul className="list-disc list-inside space-y-1">
-            <li>Keep ratings realistic and believable (4.0-4.8 range is most credible)</li>
-            <li>Ensure review count matches the quality of your testimonials</li>
-            <li>Use three-quarter precision for more authentic-looking ratings</li>
-            <li>Display ratings consistently across all sections where they appear</li>
-            <li>Consider local regulations about displaying ratings and reviews</li>
+            <li>
+              Keep ratings realistic and believable (4.0-4.8 range is most
+              credible)
+            </li>
+            <li>
+              Ensure review count matches the quality of your testimonials
+            </li>
+            <li>
+              Use three-quarter precision for more authentic-looking ratings
+            </li>
+            <li>
+              Display ratings consistently across all sections where they appear
+            </li>
+            <li>
+              Consider local regulations about displaying ratings and reviews
+            </li>
           </ul>
         </CardContent>
       </Card>

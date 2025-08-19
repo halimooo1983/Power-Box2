@@ -1,11 +1,25 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Upload, Star, DollarSign, Image as ImageIcon, Link, Type, Hash } from "lucide-react";
+import {
+  Upload,
+  Star,
+  DollarSign,
+  Image as ImageIcon,
+  Link,
+  Type,
+  Hash,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import type { HeroContent } from "@shared/admin-types";
@@ -21,7 +35,7 @@ export function HeroFormWorking({ data, onChange }: HeroFormWorkingProps) {
   const updateField = (field: keyof HeroContent, value: any) => {
     onChange({
       ...data,
-      [field]: value
+      [field]: value,
     });
   };
 
@@ -32,7 +46,7 @@ export function HeroFormWorking({ data, onChange }: HeroFormWorkingProps) {
       reader.onload = (e) => {
         const result = e.target?.result as string;
         setImagePreview(result);
-        updateField('heroImage', result);
+        updateField("heroImage", result);
       };
       reader.readAsDataURL(file);
     }
@@ -52,7 +66,8 @@ export function HeroFormWorking({ data, onChange }: HeroFormWorkingProps) {
             Hero Content
           </CardTitle>
           <CardDescription>
-            Edit the main headline, subtitle, and key messaging for your landing page
+            Edit the main headline, subtitle, and key messaging for your landing
+            page
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -64,12 +79,13 @@ export function HeroFormWorking({ data, onChange }: HeroFormWorkingProps) {
             <Textarea
               id="title"
               value={data.title}
-              onChange={(e) => updateField('title', e.target.value)}
+              onChange={(e) => updateField("title", e.target.value)}
               placeholder="Enter your main headline..."
               className="min-h-[80px] resize-none"
             />
             <p className="text-xs text-gray-500">
-              This is the main headline visitors will see first. Keep it compelling and clear.
+              This is the main headline visitors will see first. Keep it
+              compelling and clear.
             </p>
           </div>
 
@@ -80,8 +96,8 @@ export function HeroFormWorking({ data, onChange }: HeroFormWorkingProps) {
             </Label>
             <Input
               id="subtitle"
-              value={data.subtitle || ''}
-              onChange={(e) => updateField('subtitle', e.target.value)}
+              value={data.subtitle || ""}
+              onChange={(e) => updateField("subtitle", e.target.value)}
               placeholder="Optional subtitle or tagline..."
             />
           </div>
@@ -97,7 +113,7 @@ export function HeroFormWorking({ data, onChange }: HeroFormWorkingProps) {
               <Input
                 id="urgencyText"
                 value={data.urgencyText}
-                onChange={(e) => updateField('urgencyText', e.target.value)}
+                onChange={(e) => updateField("urgencyText", e.target.value)}
                 placeholder="e.g., Limited stock available"
               />
             </div>
@@ -108,7 +124,7 @@ export function HeroFormWorking({ data, onChange }: HeroFormWorkingProps) {
               <Input
                 id="deliveryText"
                 value={data.deliveryText}
-                onChange={(e) => updateField('deliveryText', e.target.value)}
+                onChange={(e) => updateField("deliveryText", e.target.value)}
                 placeholder="e.g., Fast & reliable delivery"
               />
             </div>
@@ -139,7 +155,9 @@ export function HeroFormWorking({ data, onChange }: HeroFormWorkingProps) {
                 type="number"
                 step="0.01"
                 value={data.salePrice}
-                onChange={(e) => updateField('salePrice', parseFloat(e.target.value) || 0)}
+                onChange={(e) =>
+                  updateField("salePrice", parseFloat(e.target.value) || 0)
+                }
                 placeholder="31.95"
               />
             </div>
@@ -151,8 +169,13 @@ export function HeroFormWorking({ data, onChange }: HeroFormWorkingProps) {
                 id="originalPrice"
                 type="number"
                 step="0.01"
-                value={data.originalPrice || ''}
-                onChange={(e) => updateField('originalPrice', parseFloat(e.target.value) || undefined)}
+                value={data.originalPrice || ""}
+                onChange={(e) =>
+                  updateField(
+                    "originalPrice",
+                    parseFloat(e.target.value) || undefined,
+                  )
+                }
                 placeholder="49.99"
               />
             </div>
@@ -172,7 +195,9 @@ export function HeroFormWorking({ data, onChange }: HeroFormWorkingProps) {
                   min="0"
                   max="5"
                   value={data.rating}
-                  onChange={(e) => updateField('rating', parseFloat(e.target.value) || 0)}
+                  onChange={(e) =>
+                    updateField("rating", parseFloat(e.target.value) || 0)
+                  }
                   placeholder="4.6"
                   className="w-24"
                 />
@@ -181,9 +206,9 @@ export function HeroFormWorking({ data, onChange }: HeroFormWorkingProps) {
                     <Star
                       key={i}
                       className={`h-4 w-4 ${
-                        i < Math.floor(data.rating) 
-                          ? "text-yellow-400 fill-current" 
-                          : i < data.rating 
+                        i < Math.floor(data.rating)
+                          ? "text-yellow-400 fill-current"
+                          : i < data.rating
                             ? "text-yellow-400 fill-current opacity-50"
                             : "text-gray-300"
                       }`}
@@ -200,7 +225,9 @@ export function HeroFormWorking({ data, onChange }: HeroFormWorkingProps) {
                 id="ratingReviews"
                 type="number"
                 value={data.ratingReviews}
-                onChange={(e) => updateField('ratingReviews', parseInt(e.target.value) || 0)}
+                onChange={(e) =>
+                  updateField("ratingReviews", parseInt(e.target.value) || 0)
+                }
                 placeholder="23"
               />
             </div>
@@ -225,24 +252,34 @@ export function HeroFormWorking({ data, onChange }: HeroFormWorkingProps) {
             <h4 className="font-medium text-blue-900">Primary Button</h4>
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="primaryButtonText" className="text-sm font-medium">
+                <Label
+                  htmlFor="primaryButtonText"
+                  className="text-sm font-medium"
+                >
                   Button Text
                 </Label>
                 <Input
                   id="primaryButtonText"
                   value={data.primaryButtonText}
-                  onChange={(e) => updateField('primaryButtonText', e.target.value)}
+                  onChange={(e) =>
+                    updateField("primaryButtonText", e.target.value)
+                  }
                   placeholder="View Product Details"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="primaryButtonLink" className="text-sm font-medium">
+                <Label
+                  htmlFor="primaryButtonLink"
+                  className="text-sm font-medium"
+                >
                   Button Link
                 </Label>
                 <Input
                   id="primaryButtonLink"
                   value={data.primaryButtonLink}
-                  onChange={(e) => updateField('primaryButtonLink', e.target.value)}
+                  onChange={(e) =>
+                    updateField("primaryButtonLink", e.target.value)
+                  }
                   placeholder="#product-modal or https://..."
                 />
               </div>
@@ -254,24 +291,34 @@ export function HeroFormWorking({ data, onChange }: HeroFormWorkingProps) {
             <h4 className="font-medium text-gray-900">Secondary Button</h4>
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="secondaryButtonText" className="text-sm font-medium">
+                <Label
+                  htmlFor="secondaryButtonText"
+                  className="text-sm font-medium"
+                >
                   Button Text
                 </Label>
                 <Input
                   id="secondaryButtonText"
                   value={data.secondaryButtonText}
-                  onChange={(e) => updateField('secondaryButtonText', e.target.value)}
+                  onChange={(e) =>
+                    updateField("secondaryButtonText", e.target.value)
+                  }
                   placeholder="Learn More About This Product"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="secondaryButtonLink" className="text-sm font-medium">
+                <Label
+                  htmlFor="secondaryButtonLink"
+                  className="text-sm font-medium"
+                >
                   Button Link
                 </Label>
                 <Input
                   id="secondaryButtonLink"
                   value={data.secondaryButtonLink}
-                  onChange={(e) => updateField('secondaryButtonLink', e.target.value)}
+                  onChange={(e) =>
+                    updateField("secondaryButtonLink", e.target.value)
+                  }
                   placeholder="#product-section or https://..."
                 />
               </div>
@@ -318,7 +365,7 @@ export function HeroFormWorking({ data, onChange }: HeroFormWorkingProps) {
               id="heroImage"
               value={data.heroImage}
               onChange={(e) => {
-                updateField('heroImage', e.target.value);
+                updateField("heroImage", e.target.value);
                 setImagePreview(e.target.value);
               }}
               placeholder="https://example.com/image.jpg"
@@ -358,7 +405,7 @@ export function HeroFormWorking({ data, onChange }: HeroFormWorkingProps) {
             <Input
               id="heroImageAlt"
               value={data.heroImageAlt}
-              onChange={(e) => updateField('heroImageAlt', e.target.value)}
+              onChange={(e) => updateField("heroImageAlt", e.target.value)}
               placeholder="Describe the image for accessibility..."
             />
             <p className="text-xs text-gray-500">
@@ -390,29 +437,41 @@ export function HeroFormWorking({ data, onChange }: HeroFormWorkingProps) {
                   <Star
                     key={i}
                     className={`h-4 w-4 ${
-                      i < Math.floor(data.rating) 
-                        ? "text-yellow-400 fill-current" 
+                      i < Math.floor(data.rating)
+                        ? "text-yellow-400 fill-current"
                         : "text-gray-300"
                     }`}
                   />
                 ))}
               </div>
               <span className="text-sm font-medium">{data.rating} ⭐</span>
-              <span className="text-sm text-gray-600">from {data.ratingReviews} reviews</span>
+              <span className="text-sm text-gray-600">
+                from {data.ratingReviews} reviews
+              </span>
             </div>
             <div className="flex items-center gap-4 mb-4">
-              <span className="text-2xl font-bold text-green-600">${data.salePrice}</span>
+              <span className="text-2xl font-bold text-green-600">
+                ${data.salePrice}
+              </span>
               {data.originalPrice && (
-                <span className="text-lg text-gray-500 line-through">${data.originalPrice}</span>
+                <span className="text-lg text-gray-500 line-through">
+                  ${data.originalPrice}
+                </span>
               )}
             </div>
             <div className="flex gap-2 mb-4">
-              <span className="text-sm text-green-600">✓ {data.deliveryText}</span>
-              <span className="text-sm text-red-600">⚡ {data.urgencyText}</span>
+              <span className="text-sm text-green-600">
+                ✓ {data.deliveryText}
+              </span>
+              <span className="text-sm text-red-600">
+                ⚡ {data.urgencyText}
+              </span>
             </div>
             <div className="flex gap-3">
               <Button className="flex-1">{data.primaryButtonText}</Button>
-              <Button variant="outline" className="flex-1">{data.secondaryButtonText}</Button>
+              <Button variant="outline" className="flex-1">
+                {data.secondaryButtonText}
+              </Button>
             </div>
           </div>
         </CardContent>
