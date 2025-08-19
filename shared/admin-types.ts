@@ -93,6 +93,58 @@ export interface TrustBadge {
   enabled: boolean;
 }
 
+export interface FooterContent {
+  companyName: string;
+  companyDescription: string;
+  copyrightText: string;
+  logo: string;
+  logoAlt: string;
+  socialMedia: {
+    facebook: string;
+    instagram: string;
+    twitter: string;
+    linkedin: string;
+    youtube: string;
+    tiktok: string;
+  };
+  contactInfo: {
+    email: string;
+    phone: string;
+    address: string;
+  };
+  navigationLinks: {
+    id: string;
+    label: string;
+    url: string;
+    category: 'legal' | 'support' | 'company';
+  }[];
+}
+
+export interface CTASection {
+  title: string;
+  subtitle: string;
+  description: string;
+  buttonText: string;
+  buttonLink: string;
+  secondaryButtonText?: string;
+  secondaryButtonLink?: string;
+  backgroundImage: string;
+  backgroundColor: string;
+}
+
+export interface LogoSection {
+  title: string;
+  subtitle: string;
+  logos: {
+    id: string;
+    name: string;
+    image: string;
+    imageAlt: string;
+    url?: string;
+    enabled: boolean;
+  }[];
+}
+
 export interface LandingPageData {
   hero: HeroContent;
   features: Feature[];
@@ -102,6 +154,9 @@ export interface LandingPageData {
   rating: RatingSettings;
   links: LinkSettings[];
   trustBadges: TrustBadge[];
+  footer: FooterContent;
+  cta: CTASection;
+  logos: LogoSection;
   lastUpdated: string;
 }
 
